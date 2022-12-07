@@ -1,0 +1,27 @@
+version: '2.12.0'
+services:
+  db:
+    container_name: db
+    image: mongo:latest
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    ports:
+      - "27017:27017"
+
+  web-app:
+    container_name: web-app
+    build: ./web-app
+    ports:
+      - "4001:4001"
+    depends_on:
+      - db
+    environment:
+      MONGO_URL: mongodb://mongodb:27017
+  
+  machine-learning-client:
+    container_name: machine-learning-client
+    build: ./machine-learning-client
+    ports:
+      - "5001:5001"
+    depends_on:
+      - db
