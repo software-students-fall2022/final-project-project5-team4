@@ -1,0 +1,56 @@
+{% extends 'base.html' %} {% block container %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+    <title>Register</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}"/>
+
+	</head>
+  <body>
+    <div class="div">
+    <img src="https://meet.nyu.edu/wp-content/uploads/2020/04/Main_Header.jpg" alt="Picture Here" height="300px">
+    <div class="div-2"><h3>Hi There!</h3></div><br>
+    <div class="div-4">
+      <div class="builder-columns div-5">
+        <div class="builder-column column">
+          <div class="div-6"><h2>Your Latest Review</h2></div>
+        </div>
+      </div>
+      <section class="reviews">
+        
+        <div class="div-7">
+          <div class="div-8">
+            <div class="builder-columns div-9">
+              <div class="builder-column column">
+                <div class="div-10">{{user.username}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="div-11">
+            <div class="builder-columns div-12">
+              <div class="builder-column column">
+                <div class="card-content-if-you-want-to-ad">
+                  Description: {{user.email}} <br> Rating: {{user.username}}
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+      </section>
+      <a href="" class="btn">See All</a>
+    </div>
+    <div class="div-28">
+      <a href="" class="btn">Browse Trucks</a>
+    </div>
+    <div class="div-29">
+      <a href="{{ url_for('login')}}" class="btn">Logout</a>
+    </div>
+  </div>
+  </body>
+  </html>
+
+  {% endblock %}
