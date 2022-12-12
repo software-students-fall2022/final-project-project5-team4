@@ -4,6 +4,7 @@ from dotenv import dotenv_values
 from utils import *
 
 import pymongo
+import datetime
 
 # instantiate the app
 app = Flask(__name__, static_url_path='/static')
@@ -82,6 +83,32 @@ def register():
             # user = db.users.findOne({"username": username})      
             return redirect(url_for('home', uid=username))
 
+@app.route('/apartments/<address_id>', methods = ['GET','POST'])
+def viewApartment():
+    pass
+
+@app.route('/reviews/<address_id>', methods = ['GET'])
+def reviews(address_id):
+    reviews = db.reviews.find({'address_id': address_id})
+    print(reviews, flush=True)
+    return render_template('reviews.html', reviews=reviews, address_id=address_id)
+
+
+@app.route('/add_review/<address_id>', methods=['GET','POST'])
+def add_review(address_id):
+    if request.method == 'GET':
+        return render_template('add_review.html', address_id=address_id)
+    else: 
+        # create a new review with the data the user entered
+        review = {
+            "comments": request.form.get('comments'),
+            "rating": request.form.get('rating',type=int), 
+            "added_at": datetime.datetime.utcnow(),
+            "address_id": address_id
+        }
+        db.reviews.insert_one(review) # insert a new review
+        return redirect(url_for('reviews',  address_id=address_id))
+    
 
 # run the app
 if __name__ == "__main__":

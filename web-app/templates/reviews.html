@@ -1,0 +1,35 @@
+test
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+    <title>Reviews</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}"/>
+	</head>
+<body>
+<form method="GET" class="frm" action="{{ url_for('reviews',  address_id=address_id)}}">
+
+<table>
+    <tr>
+        <td>Comments</td>
+        <td>Rating</td>
+    </tr>
+ {% block content %}
+    {% for review in reviews %}
+    <tr>
+        <td>{{review.comments}}</td>
+        <td>{{review.rating}}</td>
+    </tr>
+    {% endfor %}
+{% endblock %}
+</table>
+</form>
+<br> 
+<br> 
+<br> 
+<br> 
+<div class="div-28">
+    <a href="{{ url_for('add_review',  address_id=address_id)}}" class="btn">Add Review</a>
+</div>
+</body>
+</html>
