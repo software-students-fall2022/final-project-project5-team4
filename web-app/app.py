@@ -85,12 +85,10 @@ def home():
 
 @app.route('/login',methods=['GET'])
 def login():
-    login = True
     if (flask_login.current_user.is_authenticated):
-        login = False 
         flash('You are already logged in!')
         return redirect(url_for('home'))
-    return render_template('login.html', error='', login = login)
+    return render_template('login.html', error='')
 
 
 @app.route('/login',methods=['POST'])
@@ -113,6 +111,9 @@ def logout():
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
+    if (flask_login.current_user.is_authenticated):
+        flash('You are already logged in!')
+        return redirect(url_for('home'))
     if request.method == 'GET':
         return render_template('register.html')
     else:
