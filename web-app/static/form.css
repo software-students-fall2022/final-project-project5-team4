@@ -9,7 +9,7 @@ body{
     width: 300px;
     padding: 40px;
     position: relative;
-    margin-top: 10%;
+    margin-top: 3%;
     background: #e7e7e7;
     text-align: center;
 }
@@ -50,11 +50,11 @@ body{
 
 .box input[type = "text"]:focus,.box input[type = "password"]:focus,.box input[type = "password"]:focus{
     width: 240px;
-    border-color: #00eab3;
+    border-color: #9ccce1;
 }
 .box input[type = "address"]:focus, .box input[type = "date"]:focus{
     width: 180px;
-    border-color: #00eab3;
+    border-color: #75a6bb;
 }
 a, .box input[type = "submit"]{
     border:0;
@@ -62,7 +62,7 @@ a, .box input[type = "submit"]{
     display: block;
     margin: 20px auto;
     text-align: center;
-    border: 2px solid #00eab3;
+    border: 2px solid #75a6bb;
     padding: 14px 40px;
     outline: none;
     color: black;
@@ -72,7 +72,7 @@ a, .box input[type = "submit"]{
     text-decoration: none;
 }
 a:hover, .box input[type = "submit"]:hover{
-    background: #00eab3;
+    background: #9ccce1;
 }
 
 .box input[type = "button"]{
@@ -86,7 +86,7 @@ a:hover, .box input[type = "submit"]:hover{
     margin-right: 15px;
     align-items: center;
     text-align: center;
-    border: 2px solid #00eab3;
+    border: 2px solid #75a6bb;
     justify-content: center;
     padding: 14px 40px;
     outline: none;
@@ -96,10 +96,10 @@ a:hover, .box input[type = "submit"]:hover{
     cursor: pointer;
 }
 .box input[type = "button"]:hover{
-    background: #00eab3;
+    background: #9ccce1;
 }
 .box input[type = "button"]:focus{
-    background: #00eab3;
+    background: #9ccce1;
 }
 .box input[type = "time"] {
     background-color: #e7e7e7;
@@ -109,7 +109,7 @@ a:hover, .box input[type = "submit"]:hover{
 
 }
 .box input[type = "time"]:hover {
-    background-color: #3498db;
+    background-color: #9ccce1;
 
 }
 #sign-in{
@@ -120,12 +120,12 @@ a:hover, .box input[type = "submit"]:hover{
     color: black;
     font-size: 80%;
     text-decoration: initial;
-    width: 80px;
-    height: 15px;
+    /* width: 80px;
+    height: 15px; */
     display: block;
     margin: 10px auto;
     text-align: center;
-    border: 2px solid #00eab3;
+    border: 2px solid #75a6bb;
     padding: 14px 20px;
     outline: none;
     border-radius: 24px;
@@ -133,7 +133,7 @@ a:hover, .box input[type = "submit"]:hover{
     cursor: pointer;
 }
 #go-back:hover{
-    background-color: #00eab3;
+    background-color: #9ccce1;
 }
 .error{
     color: #c7254e;
