@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Washington Square Food Trucks</title>
+    <title>Rate Your Apartments</title>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}"
@@ -10,7 +10,7 @@
   <body>
     <div class="container">
       <header>
-        <h1>Washington Square Food Trucks</h1>
+        <h1>Find the apartment that REALLY fir your needs</h1>
         <div class="nav-bar">
           <nav>
             <a href="{{ url_for('home', uid=uid)}}">Home</a>
@@ -22,7 +22,6 @@
             <a href="{{ url_for('login')}}">Login</a>
           </nav>
         </div>
-        
       </header>
       <main>{% block container %} {% endblock %}</main>
       <footer>
