@@ -5,25 +5,26 @@
 		<meta charset="utf-8">
     <title>Register</title>
 	<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}"/>
+	<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}"/>
+
 	</head>
 <body>
-<form class="box" action="/register/" method="POST">
-	<h1>Customer Register</h1>
-	<a id="sign-in" href="/login/">Already have an account? Sign in</a> </br>
-	<input type="text" name = "username" placeholder="Username " required/> </br>
-	<input type="password" name = "password" placeholder="Password" required/></br>
-	<input type="email" name = "email" placeholder="Your email" required/> </br>
-	<input type="text" name = "favourite_apt" placeholder="Your favourite Apartment"/></br><hr color=#555555  style="width: 80%"/>
-	
-	<input type="submit" name="" value = Register />
-	<a id="go-back" href="/index/">Go back</a>
-	{% if error %}
-    <div class="error">
-        <p>{{ error }}</p>
-    </div>
-    {% endif %}
-        
-</form>
+		<form class="box" action="/register/" method="POST">
+			<h1>Register</h1>
+			<input type="text" name = "username" placeholder="Username " required/> </br>
+			<input type="password" name = "password" placeholder="Password" required/></br>
+			<input type="email" name = "email" placeholder="Your email" required/> </br>
+			<input type="submit" name="" value = Register />
+			<hr color=#608696  style="width: 90%"/>
+			<h3>Already have an account?</h3>
+			<a id="go-back" href="{{ url_for('login')}}"> Login</a>
+			{% if error %}
+			<div class="error">
+				<p>{{ error }}</p>
+			</div>
+			{% endif %}
+				
+		</form>
 
 </body>
 
