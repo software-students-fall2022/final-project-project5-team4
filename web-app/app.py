@@ -144,7 +144,7 @@ def register():
 
 
 
-@app.route('/apartment/', methods=['GET'])
+@app.route('/apartment', methods=['GET'])
 def apartments():
     return render_template('apartments.html')
 
@@ -173,10 +173,7 @@ def add_review(address_id):
         }
         db.reviews.insert_one(review) # insert a new review
         return redirect(url_for('reviews',  address_id=address_id))
-    
-@app.route('/apartments', methods = ['GET'])
-def all_apartment():
-    pass
+
 
 @app.route('/account', methods = ['GET'])
 def account():
