@@ -83,6 +83,11 @@ def register():
             # user = db.users.findOne({"username": username})      
             return redirect(url_for('home', uid=username))
 
+
+@app.route('/apartment/', methods=['GET'])
+def apartments():
+    return render_template('apartments.html')
+
 @app.route('/apartments/<address_id>', methods = ['GET','POST'])
 def viewApartment():
     pass
@@ -109,6 +114,7 @@ def add_review(address_id):
         db.reviews.insert_one(review) # insert a new review
         return redirect(url_for('reviews',  address_id=address_id))
     
+
 
 # run the app
 if __name__ == "__main__":
