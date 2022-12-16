@@ -143,6 +143,11 @@ def register():
             return redirect(url_for('home'))
 
 
+
+@app.route('/apartment/', methods=['GET'])
+def apartments():
+    return render_template('apartments.html')
+
 @app.route('/apartments/<address_id>', methods = ['GET','POST'])
 def viewApartment():
     pass
@@ -176,6 +181,7 @@ def all_apartment():
 @app.route('/account', methods = ['GET'])
 def account():
     pass
+
 
 # run the app
 if __name__ == "__main__":
