@@ -31,6 +31,7 @@ class User(flask_login.UserMixin):
     def __init__(self,data):
         self.id = data['_id'] # shortcut to _id field
         self.username = data['username']
+        self.favorite_apt = data['favorite_apt']
         self.data = data # all user 
 
 def locate_user(user_id=None, username=None):
@@ -143,15 +144,55 @@ def register():
             # user = db.users.findOne({"username": username})      
             return redirect(url_for('home'))
 
-
-
 @app.route('/apartment', methods=['GET'])
 def apartments():
     return render_template('apartments.html')
 
 @app.route('/apartments/<address_id>', methods = ['GET','POST'])
-def viewApartment():
-    pass
+def viewApartment(address_id):
+    # apartment = db.apartments.find_one({'_id': address_id})
+    apartment = db.apartments.find({})[0]
+    if (apartment ==None):
+        return redirect(url_for('home'))
+    # apartment = {
+    #     "_id": "1",
+    #     "price": 10000,
+    #     "name": "The Octagon",
+    #     "address": "888 Main St",
+    #     "borough": "Roosevelt Island",
+    #     "photo":"https://thumbs.cityrealty.com/assets/smart/736x/webp/9/97/9788674e147c90430c2beb67a1ec17e6297df3af/octagon-rotunda.jpg",
+    #     "year_of_construction": 2001,
+    #     "pet_friendly": True,
+    #     "doorman": False,
+    #     "gym": True,
+    #     "parking": False,
+    #     "elevator": True,
+    #     "laundry_in_building": True
+    # }
+    rating = 3
+    # login = True
+    # like = True
+    login = False    
+    like = False
+    if (flask_login.current_user.is_authenticated):
+        login = True
+        if apartment['_id'] in flask_login.current_user.favorite_apt:
+            like = True
+    if request.method == 'POST':
+        li = flask_login.current_user.favorite_apt
+        if (like):
+            li.remove(apartment['_id'])
+        else:
+            li.append(apartment['_id'])
+        doc = {
+            "favorite_apt":  li, 
+        }
+        db.users.update_one(
+            {"_id": ObjectId(flask_login.current_user.data['_id'])}, # match criteria
+            { "$set": doc }
+        )
+        like = not like
+    return render_template('single_apartment.html', apartment = apartment, rating = rating, login = login, like = like)
 
 @app.route('/reviews/<address_id>', methods = ['GET'])
 def reviews(address_id):
