@@ -10,7 +10,6 @@ import datetime
 app = Flask(__name__, static_url_path='/static')
 app.secret_key = 'secret'  # Change this!
 
-
 # modules for user authentication
 import flask
 import flask_login
@@ -159,7 +158,7 @@ def register():
             # user = db.users.findOne({"username": username})      
             return redirect(url_for('login'))
 
-@app.route('/apartment', methods=['GET'])
+@app.route('/apartments/', methods=['GET'])
 def apartments():
     return render_template('apartments.html')
 
@@ -207,7 +206,8 @@ def viewApartment(address_id):
             { "$set": doc }
         )
         like = not like
-    return render_template('single_apartment.html', apartment = apartment, rating = rating, login = login, like = like)
+    reviews = db.reviews.find({'address_id': address_id})
+    return render_template('single_apartment.html', apartment = apartment, address_id=address_id, reviews=reviews, rating = rating, login = login, like = like)
 
 @app.route('/reviews/<address_id>', methods = ['GET'])
 def reviews(address_id):
@@ -218,6 +218,8 @@ def reviews(address_id):
 
 @app.route('/add_review/<address_id>', methods=['GET','POST'])
 def add_review(address_id):
+    if (not flask_login.current_user.is_authenticated):
+        return redirect(url_for('viewApartment',  address_id=address_id))
     if request.method == 'GET':
         return render_template('add_review.html', address_id=address_id)
     else: 
@@ -225,11 +227,13 @@ def add_review(address_id):
         review = {
             "comments": request.form.get('comments'),
             "rating": request.form.get('rating',type=int), 
+            "price": request.form.get('price'),
             "added_at": datetime.datetime.utcnow(),
-            "address_id": address_id
+            "address_id": address_id,
+            "user_id": ObjectId(flask_login.current_user.data['_id']),
         }
         db.reviews.insert_one(review) # insert a new review
-        return redirect(url_for('reviews',  address_id=address_id))
+        return redirect(url_for('viewApartment',  address_id=address_id))
 
 
 # @app.route('/account', methods = ['GET'])

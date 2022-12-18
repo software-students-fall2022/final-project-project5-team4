@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<h2>Listings</h2>
+<p>Filter:
+    <form method="POST" action="{{ url_for('read_filterby')}}">
+        <label for="fborough">Borough:</label>
+        <input type="text" id="fborough" name="fborough" />
+        Price range:</br>
+        <label for="flower">From (lower bound):</label>
+        <textarea type="text" id="flower" name="flower"></textarea>
+        <label for="fupper">to (upper bound):</label>
+        <textarea type="text" id="fupper" name="fupper"></textarea>
+    <input type="submit" name="filter-btn" value="Filter" /></form>
+</p>
+
+<p>
+    {% for doc in docs %}
+    <div class="card">
+        <div class="card" style="width: 18rem">
+          <img src="..." class="card-img-top" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">{{doc.name}}</h5>
+            <p class="card-text">
+              Borough: {{doc.borough}}
+              Address: {{doc.address}}
+            </p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+    </div>
+    {%endfor%}
+</p>
+{% endblock %}
