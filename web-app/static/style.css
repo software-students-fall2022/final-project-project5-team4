@@ -60,3 +60,9 @@ footer {
 nav{
   margin: 0 2rem 2rem 2rem;
 }
+
+.filter {
+  border: 1px solid black;
+  font-size: 24px;
+  background-color: lightskyblue;
+}

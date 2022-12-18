@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
 {% block container %}
-<h2>Listings</h2>
-<p>Filter:
+<div class="filter">
+<h2>Filter by:</h2>
+<p>
     <form method="POST" action="{{ url_for('filter_basic')}}">
         <label for="fborough">Borough:</label>
         <input type="text" id="fborough" name="fborough" />
@@ -13,4 +14,5 @@
         <input type="number" id="fupper" name="fupper" value="-1" step="0.01" />
     <input type="submit" name="filter-btn" value="Filter" /></form>
 </p>
+</div>
 {% endblock %}
