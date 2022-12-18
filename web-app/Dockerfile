@@ -1,12 +1,13 @@
-# syntax=docker/dockerfile:1
-
-FROM python:3.8-slim-buster
+FROM --platform=linux/amd64 python:3.7-slim
 
 WORKDIR /web-app
 
-COPY requirements.txt requirements.txt
+ADD . /web-app
+
 RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4001" ]
+EXPOSE 4001
+
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4001"]
