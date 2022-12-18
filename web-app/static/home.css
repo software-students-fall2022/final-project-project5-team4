@@ -452,3 +452,134 @@ body{
   .btn:hover{
       background-color: #00eab3;
   }
+
+
+
+  .btn-acnt{
+    display: inline-block;
+    margin-left: 40px;
+    margin-right: 40px;
+    font-size: 15pt;
+    border: 2px solid rgba(0, 0, 0, 0);/*#75a6bc;*/
+    border-radius: 20px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 40px; 
+    padding: 10px;
+    /* width: 50%; */
+     min-width: 300px;
+    max-width: 300px; 
+    height: 40px;
+    color: black;
+    background-color: #9ccce2; /*#9ccce2*/
+/* 
+    height:3em;
+    width: 32%;
+    display: inline-flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center; */
+    /* transition: 0.25s;
+    cursor: pointer; */
+  }
+
+  
+  .btn-acnt2{
+    display: inline-block;
+    margin-left: 40px;
+    margin-right: 40px;
+    font-size: 15pt;
+    border: 2px solid rgba(0, 0, 0, 0);/*#75a6bc;*/
+    border-radius: 20px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 40px; 
+    padding: 10px;
+    /* width: 50%; */
+    min-width: 300px;
+    max-width: 300px;
+    height: 40px;
+    color: black;
+    /* background-color: #9ccce2; #9ccce2 */
+    transition: 0.25s;
+    cursor: pointer;
+
+    /* height:3em;
+    width: 32%;
+    display: inline-flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center; */
+  }
+
+  .btn-acnt{
+    display: inline-block;
+    margin-left: 40px;
+    margin-right: 40px;
+    font-size: 15pt;
+    border: 2px solid rgba(0, 0, 0, 0);/*#75a6bc;*/
+    border-radius: 20px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 40px; 
+    padding: 10px;
+    /* width: 50%; */
+     min-width: 300px;
+    max-width: 300px; 
+    height: 40px;
+    color: black;
+    background-color: #9ccce2; /*#9ccce2*/
+/* 
+    height:3em;
+    width: 32%;
+    display: inline-flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center; */
+    /* transition: 0.25s;
+    cursor: pointer; */
+  }
+
+  
+  .btn-acnt-so{
+    display: block;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 10pt;
+    border: 2px solid #75a6bc;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 20px; 
+    padding: 10px;
+    /* width: 50%; */
+    min-width: 40px;
+    max-width: 40px;
+    height: 20px;
+    color: black;
+    /* background-color: #9ccce2; #9ccce2 */
+    transition: 0.25s;
+    cursor: pointer;
+
+    /* height:3em;
+    width: 32%;
+    display: inline-flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center; */
+  }
+
+  .content2 {
+    display: inline-block;
+    text-align: left;
+    padding-left: 20px;
+    padding-right: 10px;
+    /* border: 2px solid black; */
+    border-top: 1px solid #75a6bc;
+    border-right: 0px;
+    border-bottom: 0px;
+    border-left:  0px;
+    align-content: left;
+    /* border-radius: 30px; */
+    width: 95%;    
+
+}
