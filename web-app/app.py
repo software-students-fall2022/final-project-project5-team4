@@ -145,12 +145,12 @@ def register():
 
 
 
-@app.route('/apartment', methods=['GET'])
+@app.route('/apartments/', methods=['GET'])
 def apartments():
     return render_template('apartments.html')
 
 @app.route('/apartments/<address_id>', methods = ['GET','POST'])
-def viewApartment():
+def viewApartment(address_id):
     pass
 
 @app.route('/reviews/<address_id>', methods = ['GET'])
