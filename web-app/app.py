@@ -108,12 +108,24 @@ def filter_basic():
     price_min = float(request.form['flower'])
     price_max = float(request.form['flower'])
 
-    if price_max == -1:
-        docs = db.apartments.find({"borough":borough,"average_price":{'$gte':price_min}})
-    else:
-        docs = db.apartments.find({"borough":borough,"average_price":{'$gte':price_min,'$lte':price_max}})
+    filter_for_template = {}
+    filter_for_template['price-min'] = price_min
 
-    return render_template('apartments.html', docs=docs)
+    if price_max == -1:
+        if borough != "":
+            filter_for_template['borough'] = [borough]
+            docs = db.apartments.find({"borough":borough,"average_price":{'$gte':price_min}})
+        else:
+            filter_for_template['borough'] = []
+            docs = db.apartments.find({"average_price":{'$gte':price_min}})
+    else:
+        filter_for_template['price-max'] = price_max
+        if borough != "":
+            docs = db.apartments.find({"borough":borough,"average_price":{'$gte':price_min,'$lte':price_max}})
+        else:
+            docs = db.apartments.find({"average_price":{'$gte':price_min,'$lte':price_max}})
+
+    return render_template('apartments.html', docs=docs, filter_for_template=filter_for_template)
 
 
 @app.route('/search', methods=['POST'])
@@ -125,19 +137,21 @@ def search():
     # add_docs = db.apartments.find({"address":nameOrAdd})
     add_docs = db.apartments.find({"address":{'$regex':nameOrAdd}})
 
-    docs = {}
+    apartments = {}
 
     for name in name_docs:
-        docsKeys = docs.keys()
+        docsKeys = apartments.keys()
         if name not in docsKeys:
-            docs[name] = name_docs[name]
+            apartments[name] = name_docs[name]
     
     for add in add_docs:
-        docsKeys = docs.keys()
+        docsKeys = apartments.keys()
         if add not in docsKeys:
-            docs[add] = add_docs[add]
+            apartments[add] = add_docs[add]
+    
+    filter_for_template = {}
 
-    return render_template('apartments.html', docs=docs)
+    return render_template('apartments.html', apartments=apartments, filter_for_template=filter_for_template)
 
 
 
