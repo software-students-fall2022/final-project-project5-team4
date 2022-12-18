@@ -43,11 +43,28 @@
             <p class = "amenities"> elevator: {{apartment.elevator}}</p>
             <p class = "amenities"> laundry_in_building: {{apartment.laundry_in_building}}</p>
         </div>
-
-        
+        <div>
+            <table>
+                <tr>
+                    <td>Comments</td>
+                    <td>Rating</td>
+                    <td>Price</td>
+                </tr>
+             {% block content %}
+                {% for review in reviews %}
+                <tr>
+                    <td>{{review.comments}}</td>
+                    <td>{{review.rating}}</td>
+                    <td>{{review.price}}</td>
+                </tr>
+                {% endfor %}
+            {% endblock %}
+            </table>
+        </div>
     </div>
-
-
+    <div>
+        <a href="{{ url_for('add_review',  address_id=address_id)}}" class="btn">Add Review</a>
+    </div>
 </body>
 
 </html>

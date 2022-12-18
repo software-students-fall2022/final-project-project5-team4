@@ -10,7 +10,6 @@ import datetime
 app = Flask(__name__, static_url_path='/static')
 app.secret_key = 'secret'  # Change this!
 
-
 # modules for user authentication
 import flask
 import flask_login
@@ -207,7 +206,8 @@ def viewApartment(address_id):
             { "$set": doc }
         )
         like = not like
-    return render_template('single_apartment.html', apartment = apartment, rating = rating, login = login, like = like)
+    reviews = db.reviews.find({'address_id': address_id})
+    return render_template('single_apartment.html', apartment = apartment, address_id=address_id, reviews=reviews, rating = rating, login = login, like = like)
 
 @app.route('/reviews/<address_id>', methods = ['GET'])
 def reviews(address_id):
@@ -225,11 +225,12 @@ def add_review(address_id):
         review = {
             "comments": request.form.get('comments'),
             "rating": request.form.get('rating',type=int), 
+            "price": request.form.get('price'),
             "added_at": datetime.datetime.utcnow(),
             "address_id": address_id
         }
         db.reviews.insert_one(review) # insert a new review
-        return redirect(url_for('reviews',  address_id=address_id))
+        return redirect(url_for('viewApartment',  address_id=address_id))
 
 
 @app.route('/account', methods = ['GET'])
