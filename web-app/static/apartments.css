@@ -1,0 +1,75 @@
+.filter-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  column-gap: 16px;
+  padding: 32px 0 16px 0;
+  border-bottom: 1px solid rgb(202, 201, 201);
+}
+
+.filter-wrapper > div {
+  border: 1px solid rgb(201, 199, 199);
+  border-radius: 8px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  min-width: 200px;
+  column-gap: 8px;
+}
+
+.filter-location {
+}
+
+.filter-price {
+}
+
+.card-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  row-gap: 16px;
+  column-gap: 16px;
+  width: 80%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 0 40px;
+}
+
+.apartment-address {
+  font-size: 14px;
+  color: rgb(122, 122, 253);
+}
+
+/* MODAL */
+.modal-body__wrapper {
+  display: grid;
+  grid-template-columns: 120px 500px;
+  row-gap: 8px;
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 700px;
+  }
+}
+
+.modal-body__label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.modal-body__input-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.col-gap-4 {
+  column-gap: 4px;
+}
+
+.col-gap-lg {
+  column-gap: 12px;
+}

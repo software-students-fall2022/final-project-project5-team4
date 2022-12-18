@@ -10,36 +10,414 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='apartments.css') }}"
+    />
   </head>
   <body>
-    <div class="container-xl">
+    <div class="">
       <div class="filter-wrapper">
-        <div class="filter-location">New York</div>
-        <div class="filter-price">$300 ~ $2000</div>
-        <button class="btn btn-primary" type="button">Search More</button>
+        <div class="filter-location">
+          <i class="bi bi-geo-alt"></i> {{', '.join(filter_for_template.borough) or 'New York'}}
+        </div>
+        <div class="filter-price"><i class="bi bi-tag"></i>
+          {% if filter_for_template["price-min"] %}${% endif %}
+          {{filter_for_template["price-min"]}} 
+          {% if filter_for_template["price-min"] or filter_for_template["price-max"] %} ~ {% endif %}
+          {% if filter_for_template["price-max"] %}${% endif %}
+          {{filter_for_template["price-max"]}}
+        </div>
+        <button
+          class="btn btn-primary"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#searchMoreModal"
+        >
+          Search More
+        </button>
       </div>
 
       <div class="card-wrapper">
         <!-- {% for i in '123456' %} -->
         {% for doc in docs %}
         <div class="card">
-          <div class="card" style="width: 18rem">
-            <img src="..." class="card-img-top" alt="..." />
-            <div class="card-body">
-              <!-- <h5 class="card-title">Card title</h5> -->
-              <h5 class="card-title">{{doc.name}}</h5>
-              <p class="card-text">
-                Borough: {{doc.borough}}</br>
-                Address: {{doc.address}}</br>
-                Price: ~{{doc.average_price}}</br>
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
+          <img src="{{apartment.photo}}" class="card-img-top" alt="..." />
+          <div class="card-body">
+            <p class="card-text">
+             <div class="apartment-address">{{apartment.address}}</div>
+            </p>
+            <a href="/apartments/{{apartment._id}}" class="btn btn-primary">View More</a>
           </div>
         </div>
         {% endfor %}
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="searchMoreModal"
+      tabindex="-1"
+      aria-labelledby="searchMoreModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form method="GET">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="searchMoreModalLabel">
+                Search More
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="modal-body__wrapper">
+                <div class="modal-body__label">Location</div>
+                <div class="modal-body__input-wrapper col-gap-4">
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    name="borough"
+                    value="Bronx"
+                    id="location-bronx"
+                    autocomplete="off"
+                    {% if 'Bronx' in filter_for_template.borough %}checked{% endif %}
+                  />
+                  <label class="btn btn-outline-primary" for="location-bronx"
+                    >Bronx</label
+                  >
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    name="borough"
+                    value="Brooklyn"
+                    id="location-brooklyn"
+                    autocomplete="off"
+                    {% if 'Brooklyn' in filter_for_template.borough %}checked{% endif %}
+                  />
+                  <label class="btn btn-outline-primary" for="location-brooklyn"
+                    >Brooklyn</label
+                  >
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    name="borough"
+                    value="Manhattan"
+                    id="location-manhattan"
+                    autocomplete="off"
+                    {% if 'Manhattan' in filter_for_template.borough %}checked{% endif %}
+                  />
+                  <label
+                    class="btn btn-outline-primary"
+                    for="location-manhattan"
+                    >Manhattan</label
+                  >
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    name="borough"
+                    value="Queens"
+                    id="location-queens"
+                    autocomplete="off"
+                    {% if 'Queens' in filter_for_template.borough %}checked{% endif %}
+                  />
+                  <label class="btn btn-outline-primary" for="location-queens"
+                    >Queens</label
+                  >
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    name="borough"
+                    value="Staten Island"
+                    id="location-staten-island"
+                    autocomplete="off"
+                    {% if 'Staten Island' in filter_for_template.borough %}checked{% endif %}
+                  />
+                  <label
+                    class="btn btn-outline-primary"
+                    for="location-staten-island"
+                    >Staten Island</label
+                  >
+                </div>
+                <div class="modal-body__label">Price Range</div>
+                <div class="modal-body__input-wrapper">
+                  <div class="input-group">
+                    <span class="input-group-text">Min Price: </span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      placeholder="Minimun price"
+                      aria-label="price-min"
+                      name="price-min"
+                      value="{{filter_for_template['price-min'] or None}}"
+                    />
+                    <span class="input-group-text">Max Price: </span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      placeholder="Maximum price"
+                      aria-label="price-max"
+                      name="price-max"
+                      value="{{filter_for_template['price-max'] or None}}"
+                    />
+                  </div>
+                </div>
+                <div class="modal-body__label">Pet-friendly</div>
+                <div class="modal-body__input-wrapper col-gap-lg">
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="pet_friendly"
+                    value="yes"
+                    id="pet-friendly-yes"
+                    autocomplete="off"
+                    {% if filter_for_template.pet_friendly == 'yes' %}checked{% endif %}
+                  />
+                  <label class="btn btn-outline-primary" for="pet-friendly-yes"
+                    >Yes</label
+                  >
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="pet_friendly"
+                    value="no"
+                    id="pet-friendly-no"
+                    autocomplete="off"
+                    {% if filter_for_template.pet_friendly == 'no' %}checked{% endif %}
+                  />
+                  <label class="btn btn-outline-primary" for="pet-friendly-no"
+                    >No</label
+                  >
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="pet_friendly"
+                    value=""
+                    id="pet-friendly-any"
+                    autocomplete="off"
+                    {% if filter_for_template.pet_friendly == '' %}checked{% endif %}
+                  />
+                  <label class="btn btn-outline-primary" for="pet-friendly-any"
+                    >Any</label
+                  >
+                </div>
+                <div class="modal-body__label">Doorman</div>
+                <div class="modal-body__input-wrapper col-gap-lg">
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="doorman"
+                    value="yes"
+                    id="doorman-yes"
+                    autocomplete="off"
+                    {% if filter_for_template.doorman == 'yes' %}checked{% endif %}
+                  />
+                  <label class="btn btn-outline-primary" for="doorman-yes"
+                    >Yes</label
+                  >
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="doorman"
+                    value="no"
+                    id="doorman-no"
+                    autocomplete="off"
+                    {% if filter_for_template.doorman == 'no' %}checked{% endif %}
+                  />
+                  <label class="btn btn-outline-primary" for="doorman-no"
+                    >No</label
+                  >
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="doorman"
+                    value=""
+                    id="doorman-any"
+                    autocomplete="off"
+                    {% if filter_for_template.doorman == '' %}checked{% endif %}
+                  />
+                  <label class="btn btn-outline-primary" for="doorman-any"
+                    >Any</label
+                  >
+                </div>
+                <div class="modal-body__label">Gym</div>
+                <div class="modal-body__input-wrapper col-gap-lg">
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="gym"
+                    value="yes"
+                    id="gym-yes"
+                    autocomplete="off"
+                    {% if filter_for_template.gym == 'yes' %}checked{% endif %}
+                  />
+                  <label class="btn btn-outline-primary" for="gym-yes"
+                    >Yes</label
+                  >
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="gym"
+                    value="no"
+                    id="gym-no"
+                    autocomplete="off"
+                    {% if filter_for_template.gym == 'no' %}checked{% endif %}
+                  />
+                  <label class="btn btn-outline-primary" for="gym-no">No</label>
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="gym"
+                    value=""
+                    id="gym-any"
+                    autocomplete="off"
+                    {% if filter_for_template.gym == '' %}checked{% endif %}
+                  />
+                  <label class="btn btn-outline-primary" for="gym-any"
+                    >Any</label
+                  >
+                </div>
+                <div class="modal-body__label">Parking</div>
+                <div class="modal-body__input-wrapper col-gap-lg">
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="parking"
+                    value="yes"
+                    id="parking-yes"
+                    autocomplete="off"
+                    {% if filter_for_template.parking == 'yes' %}checked{% endif %}
+                  />
+                  <label class="btn btn-outline-primary" for="parking-yes"
+                    >Yes</label
+                  >
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="parking"
+                    value="no"
+                    id="parking-no"
+                    autocomplete="off"
+                    {% if filter_for_template.parking == 'no' %}checked{% endif %}
+                  />
+                  <label class="btn btn-outline-primary" for="parking-no"
+                    >No</label
+                  >
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="parking"
+                    value=""
+                    id="parking-any"
+                    autocomplete="off"
+                    {% if filter_for_template.parking == '' %}checked{% endif %}
+                  />
+                  <label class="btn btn-outline-primary" for="parking-any"
+                    >Any</label
+                  >
+                </div>
+                <div class="modal-body__label">Elevator</div>
+                <div class="modal-body__input-wrapper col-gap-lg">
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="elevator"
+                    value="yes"
+                    id="elevator-yes"
+                    autocomplete="off"
+                    {% if filter_for_template.elevator == 'yes' %}checked{% endif %}
+                  />
+                  <label class="btn btn-outline-primary" for="elevator-yes"
+                    >Yes</label
+                  >
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="elevator"
+                    value="no"
+                    id="elevator-no"
+                    autocomplete="off"
+                    {% if filter_for_template.elevator == 'no' %}checked{% endif %}
+                  />
+                  <label class="btn btn-outline-primary" for="elevator-no"
+                    >No</label
+                  >
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="elevator"
+                    value=""
+                    id="elevator-any"
+                    autocomplete="off"
+                    {% if filter_for_template.elevator == '' %}checked{% endif %}
+                  />
+                  <label class="btn btn-outline-primary" for="elevator-any"
+                    >Any</label
+                  >
+                </div>
+                <div class="modal-body__label">Laundry</div>
+                <div class="modal-body__input-wrapper col-gap-lg">
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="laundry_in_building"
+                    value="yes"
+                    id="laundry-yes"
+                    autocomplete="off"
+                    {% if filter_for_template.laundry_in_building == 'yes' %}checked{% endif %}
+                  />
+                  <label class="btn btn-outline-primary" for="laundry-yes"
+                    >Yes</label
+                  >
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="laundry_in_building"
+                    value="no"
+                    id="laundry-no"
+                    autocomplete="off"
+                    {% if filter_for_template.laundry_in_building == 'no' %}checked{% endif %}
+                  />
+                  <label class="btn btn-outline-primary" for="laundry-no"
+                    >No</label
+                  >
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="laundry_in_building"
+                    value=""
+                    id="laundry-any"
+                    autocomplete="off"
+                    {% if filter_for_template.laundry_in_building == '' %}checked{% endif %}
+                  />
+                  <label class="btn btn-outline-primary" for="laundry-any"
+                    >Any</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
 
