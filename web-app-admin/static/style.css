@@ -12,7 +12,6 @@
 header {
   justify-content: space-between; /* align along the flex direction */
   align-items: center; /* align across the flex direction */
-  /* border-bottom: thick double #32a1ce; */
   padding-top: 3%;
   background-color: #C9D9D6;
 }
