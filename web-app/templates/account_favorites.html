@@ -15,46 +15,34 @@
 		.div1 {
 			width:20%;
 			float: left;
-			/* display: flex; */
-			vertical-align: middle;
-  			align-items: center;
-			justify-content: center;
+		}
+		.child {
+			display: inline-table;
 		}
 		.div2 {
 			width: 75%;
 			float: right;
 			gap: 10px;
 		}
-
-		/* .parent {
-    		display: flex;
-		}
-		.parent > div {
-			display: inline-block;
-			padding: 1em;
-			border: 2px solid #f00;
-		} */
-
 		.div {
 			gap: 0px;
 			display: block;
 		}
-
 		a.two {
 			max-width: 100%;
 			border: 0px; 
 			border-radius: 5px;
 		}
-
 		a.two:hover{
 			background-color: #cfe8f2;
 		}
-		
 	</style>
 	<div class = "div1">
-		<h1>Hi, {{user.username}}!</h1>
-		<div>You're signed in as: {{user.email}}</div>
-		<a href="{{ url_for('logout')}}" class="btn-acnt-so"> Signout</a>
+		<h1 class = "child">Hi, {{user.username}}!</h1>
+		<div class = "child"></divclass>You're signed in as: {{user.email}}</div>
+		<div class = "child">
+			<a href="{{ url_for('logout')}}" class="btn-acnt-so"> Signout</a>
+		</div>
 	</div>
 
 	<div class = "div2">
@@ -69,11 +57,9 @@
 		{% for doc in docs %}
 			<article class = "content2">
 				<a href="{{ url_for('viewApartment', address_id=doc._id)}}" class = "two">
-				<!-- <p> -->
 					<span style="font-size:22px"> Building Name: {{doc.name}} </span>
 					<p class="address"> Address: {{doc.address}} </p>
 					<p class="borough"> Borough: {{doc.borough}} </p>
-				<!-- </p> -->
 			</a>
 			</article>
 		

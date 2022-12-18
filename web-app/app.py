@@ -236,44 +236,35 @@ def add_review(address_id):
         return redirect(url_for('viewApartment',  address_id=address_id))
 
 
-# @app.route('/account', methods = ['GET'])
-# def account():
-#     pass
 
 @app.route('/account', methods = ['GET'])
 #default view of account
 def account_favorites():
-    # if not flask_login.current_user.is_authenticated:
-    #     return render_template('guest_home.html')
+    if not flask_login.current_user.is_authenticated:
+        return render_template('guest_home.html')
     # docs = flask_login.current_user.favorite_apt
-
-    doc = db.users.find_one({"username":"admin"})
+    doc = db.users.find_one({"_id": ObjectId(flask_login.current_user.data['_id'])})
     apt_ids = doc['favorite_apt']
     docs=[]
     for apt in apt_ids:
         add = db.apartments.find_one({"_id":ObjectId(apt)})
         docs.append(add)
-    docs.append({"name": "leah", "address":"nyu","borough":"manhattan"})
-    docs.append({"name": "leah", "address":"nyu","borough":"manhattan"})
-    docs.append({"name": "leah", "address":"nyu","borough":"manhattan"})
-    docs.append({"name": "leah", "address":"nyu","borough":"manhattan"})
-    docs.append({"name": "leah", "address":"nyu","borough":"manhattan"})
-    
-    #docs = db.users.find_one({}) #ObjectId(flask_login.current_user.data['_id'])
-    return render_template('account_favorites.html',docs=docs, user = doc)#user=flask_login.current_user.data)
+    return render_template('account_favorites.html',docs=docs, user=flask_login.current_user.data)
 
 @app.route('/account/reviews', methods = ['GET'])
 def account_reviews():
-    # if not flask_login.current_user.is_authenticated:
-    #     return render_template('guest_home.html')
-    #docs = db.reviews.find({"user_id":ObjectId(flask_login.current_user.data['_id'])})
-    docs = db.reviews.find({}) #will change to db.reviews.find({user_id: currentuser})
-    user = db.users.find_one({"username":"admin"})
+    if not flask_login.current_user.is_authenticated:
+        return render_template('guest_home.html')
+    docs = db.reviews.find({"user_id":ObjectId(flask_login.current_user.data['_id'])})
+    user = db.users.find_one({"_id":ObjectId(flask_login.current_user.data['_id'])})
+    docs2 = []
     for doc in docs:
         apt_id = doc["address_id"]
         apt = db.apartments.find_one({"_id": ObjectId(apt_id)})
-        doc.append(apt)
-    return render_template('account_reviews.html',docs = docs, user = user)
+        doc.update({"apt_name":apt['name']})
+        doc.update({"apt_address" : apt['address']})
+        docs2.append(doc)
+    return render_template('account_reviews.html',docs = docs2, user = user)
 
 # run the app
 if __name__ == "__main__":
