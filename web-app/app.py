@@ -160,9 +160,15 @@ def register():
 
 @app.route('/apartments/', methods=['GET'])
 def apartments():
+    CHOICE_KEYS = ['pet_friendly', 'doorman', 'gym', 'parking', 'elevator', 'laundry_in_building']
+    # filter_for_template
     filter_for_template = request.args.to_dict()
     filter_for_template['borough'] = []
+    for key in CHOICE_KEYS:
+        if key not in filter_for_template.keys():
+            filter_for_template[key] = ''
 
+    # filter
     filter = dict()
 
     borough = request.args.getlist('borough', None)
@@ -177,7 +183,7 @@ def apartments():
     else:
         filter['price'] = {"$gt": int(min_price)} 
 
-    for key in ['pet_friendly', 'doorman', 'gym', 'parking', 'elevator', 'laundry_in_building']:
+    for key in CHOICE_KEYS:
         value = request.args.get(key, None)
         if value:
             filter[key] = {"$eq": parse_yes_no_to_bool(value)}
