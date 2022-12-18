@@ -21,16 +21,34 @@ from werkzeug.security import check_password_hash
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
 
-# set up the database
-cxn = pymongo.MongoClient("db",27017)
-db = cxn['containerizedTest']
+config = dotenv_values(".env")
 
+config = dotenv_values(".env")
+
+# turn on debugging if in development mode
+if config['FLASK_ENV'] == 'development':
+    # turn on debugging, if in development
+    app.debug = True # debug mnode
+
+# connect to the database
+cxn = pymongo.MongoClient(config['MONGO_URI'], serverSelectionTimeoutMS=5000)
+try:
+    # verify the connection works by pinging the database
+    cxn.admin.command('ping') # The ping command is cheap and does not require auth.
+    db = cxn[config['MONGO_DBNAME']] # store a reference to the database
+    print(' *', 'Connected to MongoDB!') # if we get here, the connection worked!
+except Exception as e:
+    # the ping command failed, so the connection is not available.
+    # render_template('error.html', error=e) # render the edit template
+    print(' *', "Failed to connect to MongoDB at", config['MONGO_URI'])
+    print('Database connection error:', e) # debug
 
 # class to represent user
 class User(flask_login.UserMixin):
     def __init__(self,data):
         self.id = data['_id'] # shortcut to _id field
         self.username = data['username']
+        self.favorite_apt = data['favorite_apt']
         self.data = data # all user 
 
 def locate_user(user_id=None, username=None):
@@ -135,23 +153,61 @@ def register():
                 "username": username,
                 "password": password,
                 "email": email,
-                "favourite_apt": [],
+                "favorite_apt": [],
                 }
             user_id = db.users.insert_one(user).inserted_id
-            if (user_id):
-                flask_login.login_user(user)
             # user = db.users.findOne({"username": username})      
-            return redirect(url_for('home'))
-
-
+            return redirect(url_for('login'))
 
 @app.route('/apartment', methods=['GET'])
 def apartments():
     return render_template('apartments.html')
 
 @app.route('/apartments/<address_id>', methods = ['GET','POST'])
-def viewApartment():
-    pass
+def viewApartment(address_id):
+    # apartment = db.apartments.find_one({'_id': address_id})
+    apartment = db.apartments.find({})[0]
+    if (apartment ==None):
+        return redirect(url_for('home'))
+    # apartment = {
+    #     "_id": "1",
+    #     "price": 10000,
+    #     "name": "The Octagon",
+    #     "address": "888 Main St",
+    #     "borough": "Roosevelt Island",
+    #     "photo":"https://thumbs.cityrealty.com/assets/smart/736x/webp/9/97/9788674e147c90430c2beb67a1ec17e6297df3af/octagon-rotunda.jpg",
+    #     "year_of_construction": 2001,
+    #     "pet_friendly": True,
+    #     "doorman": False,
+    #     "gym": True,
+    #     "parking": False,
+    #     "elevator": True,
+    #     "laundry_in_building": True
+    # }
+    rating = 3
+    # login = True
+    # like = True
+    login = False    
+    like = False
+    if (flask_login.current_user.is_authenticated):
+        login = True
+        if apartment['_id'] in flask_login.current_user.favorite_apt:
+            like = True
+    if request.method == 'POST':
+        li = flask_login.current_user.favorite_apt
+        if (like):
+            li.remove(apartment['_id'])
+        else:
+            li.append(apartment['_id'])
+        doc = {
+            "favorite_apt":  li, 
+        }
+        db.users.update_one(
+            {"_id": ObjectId(flask_login.current_user.data['_id'])}, # match criteria
+            { "$set": doc }
+        )
+        like = not like
+    return render_template('single_apartment.html', apartment = apartment, rating = rating, login = login, like = like)
 
 @app.route('/reviews/<address_id>', methods = ['GET'])
 def reviews(address_id):
