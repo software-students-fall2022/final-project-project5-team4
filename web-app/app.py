@@ -160,7 +160,33 @@ def register():
 
 @app.route('/apartments/', methods=['GET'])
 def apartments():
-    apartments = db.apartments.find({})
+    # TODO
+    # 1. insert dummy data in mongodb (O)
+    # 2. filter by query string (pet_friendly, ...)
+    # 3. show apartments and filters 
+    # 4. modify card content
+
+    # query string (GET method)
+    # query string key => borough, price-min, price-max
+    filter = dict()
+
+    borough = request.args.getlist('borough', None)
+    if borough:
+        filter['borough'] = {"$in": borough} 
+
+    min_price = request.args.get('price-min') or 0
+    max_price = request.args.get('price-max', None) 
+    if max_price:
+        filter['price'] = {"$lt": int(max_price), "$gt": int(min_price)}
+    else:
+        filter['price'] = {"$gt": int(min_price)} 
+
+    for key in ['pet_friendly', 'doorman', 'gym', 'parking', 'elevator', 'laundry_in_building']:
+        value = request.args.get(key, None)
+        if value:
+            filter[key] = {"$eq": parse_yes_no_to_bool(value)}
+    
+    apartments = db.apartments.find(filter)
     return render_template('apartments.html', apartments=apartments)
 
 @app.route('/apartments/<address_id>', methods = ['GET','POST'])
