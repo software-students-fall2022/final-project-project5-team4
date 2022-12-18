@@ -26,7 +26,14 @@
           <i class="bi bi-geo-alt"></i> New York
         </div>
         <div class="filter-price"><i class="bi bi-tag"></i>$300 ~ $2000</div>
-        <button class="btn btn-primary" type="button">Search More</button>
+        <button
+          class="btn btn-primary"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#searchMoreModal"
+        >
+          Search More
+        </button>
       </div>
 
       <div class="card-wrapper">
@@ -47,6 +54,300 @@
           </div>
         </div>
         {% endfor %}
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="searchMoreModal"
+      tabindex="-1"
+      aria-labelledby="searchMoreModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="searchMoreModalLabel">
+              Search More
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="modal-body__wrapper">
+              <div class="modal-body__label">Location</div>
+              <div class="modal-body__input-wrapper">
+                <input
+                  type="checkbox"
+                  class="btn-check"
+                  name="location"
+                  value="bronx"
+                  id="location-bronx"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="location-bronx"
+                  >Bronx</label
+                >
+                <input
+                  type="checkbox"
+                  class="btn-check"
+                  name="location"
+                  value="brooklyn"
+                  id="location-brooklyn"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="location-brooklyn"
+                  >Brooklyn</label
+                >
+                <input
+                  type="checkbox"
+                  class="btn-check"
+                  name="location"
+                  value="manhattan"
+                  id="location-manhattan"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="location-manhattan"
+                  >Manhattan</label
+                >
+                <input
+                  type="checkbox"
+                  class="btn-check"
+                  name="location"
+                  value="queens"
+                  id="location-queens"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="location-queens"
+                  >Queens</label
+                >
+                <input
+                  type="checkbox"
+                  class="btn-check"
+                  name="location"
+                  value="staten-island"
+                  id="location-staten-island"
+                  autocomplete="off"
+                />
+                <label
+                  class="btn btn-outline-primary"
+                  for="location-staten-island"
+                  >Staten Island</label
+                >
+              </div>
+              <div class="modal-body__label">Price Range</div>
+              <div class="modal-body__input-wrapper">
+                <div class="input-group">
+                  <span class="input-group-text">Min Price: </span>
+                  <input
+                    type="number"
+                    class="form-control"
+                    placeholder="Minimun price"
+                    aria-label="price-min"
+                    name="price-min"
+                  />
+                  <span class="input-group-text">Max Price: </span>
+                  <input
+                    type="number"
+                    class="form-control"
+                    placeholder="Maximum price"
+                    aria-label="price-max"
+                    name="price-max"
+                  />
+                </div>
+              </div>
+              <div class="modal-body__label">Pet-friendly</div>
+              <div class="modal-body__input-wrapper">
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="pet-friendly"
+                  value="yes"
+                  id="pet-friendly-yes"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="pet-friendly-yes"
+                  >Yes</label
+                >
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="pet-friendly"
+                  value="no"
+                  id="pet-friendly-no"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="pet-friendly-no"
+                  >No</label
+                >
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="pet-friendly"
+                  value="any"
+                  id="pet-friendly-any"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="pet-friendly-any"
+                  >Any</label
+                >
+              </div>
+              <div class="modal-body__label">Gym</div>
+              <div class="modal-body__input-wrapper">
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="gym"
+                  value="yes"
+                  id="gym-yes"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="gym-yes">Yes</label>
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="gym"
+                  value="no"
+                  id="gym-no"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="gym-no">No</label>
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="gym"
+                  value="any"
+                  id="gym-any"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="gym-any">Any</label>
+              </div>
+              <div class="modal-body__label">Parking</div>
+              <div class="modal-body__input-wrapper">
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="parking"
+                  value="yes"
+                  id="parking-yes"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="parking-yes"
+                  >Yes</label
+                >
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="parking"
+                  value="no"
+                  id="parking-no"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="parking-no"
+                  >No</label
+                >
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="parking"
+                  value="any"
+                  id="parking-any"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="parking-any"
+                  >Any</label
+                >
+              </div>
+              <div class="modal-body__label">Elavator</div>
+              <div class="modal-body__input-wrapper">
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="elavator"
+                  value="yes"
+                  id="elavator-yes"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="elavator-yes"
+                  >Yes</label
+                >
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="elavator"
+                  value="no"
+                  id="elavator-no"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="elavator-no"
+                  >No</label
+                >
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="elavator"
+                  value="any"
+                  id="elavator-any"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="elavator-any"
+                  >Any</label
+                >
+              </div>
+              <div class="modal-body__label">Laundry</div>
+              <div class="modal-body__input-wrapper">
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="laundry"
+                  value="yes"
+                  id="laundry-yes"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="laundry-yes"
+                  >Yes</label
+                >
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="laundry"
+                  value="no"
+                  id="laundry-no"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="laundry-no"
+                  >No</label
+                >
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="laundry"
+                  value="any"
+                  id="laundry-any"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="laundry-any"
+                  >Any</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="button" class="btn btn-primary">Search</button>
+          </div>
+        </div>
       </div>
     </div>
 
