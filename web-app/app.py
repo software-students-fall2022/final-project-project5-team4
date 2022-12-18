@@ -115,6 +115,30 @@ def filter_basic():
 
     return render_template('apartments.html', docs=docs)
 
+
+@app.route('/search', methods=['POST'])
+def search():
+
+    nameOrAdd = request.form['fnameOrAdd']
+    name_docs = db.apartments.find({"name":nameOrAdd})
+    add_docs = db.apartments.find({"address":nameOrAdd})
+
+    docs = {}
+
+    for name in name_docs:
+        docsKeys = docs.keys()
+        if name not in docsKeys:
+            docs[name] = name_docs[name]
+    
+    for add in add_docs:
+        docsKeys = docs.keys()
+        if add not in docsKeys:
+            docs[add] = add_docs[add]
+
+    return render_template('apartments.html', docs=docs)
+
+
+
         
 	
 ####################
