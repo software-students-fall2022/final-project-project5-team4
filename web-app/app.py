@@ -21,10 +21,27 @@ from werkzeug.security import check_password_hash
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
 
-# set up the database
-cxn = pymongo.MongoClient("db",27017)
-db = cxn['containerizedTest']
+config = dotenv_values(".env")
 
+config = dotenv_values(".env")
+
+# turn on debugging if in development mode
+if config['FLASK_ENV'] == 'development':
+    # turn on debugging, if in development
+    app.debug = True # debug mnode
+
+# connect to the database
+cxn = pymongo.MongoClient(config['MONGO_URI'], serverSelectionTimeoutMS=5000)
+try:
+    # verify the connection works by pinging the database
+    cxn.admin.command('ping') # The ping command is cheap and does not require auth.
+    db = cxn[config['MONGO_DBNAME']] # store a reference to the database
+    print(' *', 'Connected to MongoDB!') # if we get here, the connection worked!
+except Exception as e:
+    # the ping command failed, so the connection is not available.
+    # render_template('error.html', error=e) # render the edit template
+    print(' *', "Failed to connect to MongoDB at", config['MONGO_URI'])
+    print('Database connection error:', e) # debug
 
 # class to represent user
 class User(flask_login.UserMixin):
@@ -136,13 +153,11 @@ def register():
                 "username": username,
                 "password": password,
                 "email": email,
-                "favourite_apt": [],
+                "favorite_apt": [],
                 }
             user_id = db.users.insert_one(user).inserted_id
-            if (user_id):
-                flask_login.login_user(user)
             # user = db.users.findOne({"username": username})      
-            return redirect(url_for('home'))
+            return redirect(url_for('login'))
 
 @app.route('/apartment', methods=['GET'])
 def apartments():
