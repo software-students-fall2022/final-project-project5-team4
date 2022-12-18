@@ -19,7 +19,7 @@ body{
     font-weight: 500;
     margin: 10px auto;
 }
-.box input[type = "text"],.box input[type = "password"],.box input[type = "email"]{
+.box select, input[type = "text"],.box input[type = "password"],.box input[type = "email"],.box input[type = "url"],.box input[type = "number"]{
     border:0;
     background: none;
     display: inline-block;
@@ -33,6 +33,15 @@ body{
     border-radius: 24px;
     transition: 0.25s;
 }
+.box input[type = "checkbox"] {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    height: 15px;
+    width: 15px;
+    background-color: grey;
+    border-radius: 50%;
+  }
 .box input[type = "address"], .box input[type = "date"]{
     border:0;
     background: none;
@@ -48,7 +57,7 @@ body{
     transition: 0.25s;
 }
 
-.box input[type = "text"]:focus,.box input[type = "password"]:focus,.box input[type = "password"]:focus{
+.box select:focus,.box input[type = "text"]:focus,.box input[type = "password"]:focus,.box input[type = "url"]:focus,.box input[type = "number"]:focus{
     width: 240px;
     border-color: #9ccce1;
 }
@@ -112,6 +121,14 @@ a:hover, .box input[type = "submit"]:hover{
     background-color: #9ccce1;
 
 }
+
+.box label {
+    color: rgb(98, 97, 97);
+    font-size: 100%;
+    text-align: left;
+    margin-right: 10px;
+    display: inline-block;
+}
 #sign-in{
     width: 100%;
 }
@@ -124,6 +141,7 @@ a:hover, .box input[type = "submit"]:hover{
     height: 15px; */
     display: block;
     margin: 10px auto;
+    margin-top: 20px;
     text-align: center;
     border: 2px solid #75a6bb;
     padding: 14px 20px;

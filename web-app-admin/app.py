@@ -11,7 +11,6 @@ app = Flask(__name__, static_url_path='/static')
 app.secret_key = 'secret'  # Change this!
 
 # modules for user authentication
-import flask
 import flask_login
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
@@ -149,7 +148,69 @@ def register():
 
 @app.route('/add', methods=['POST', 'GET'])
 def add_apartment():
-    pass
+    if not flask_login.current_user.is_authenticated:
+        return redirect(url_for('login'))
+    if request.method == 'GET':
+        return render_template('add_apartment.html', username=flask_login.current_user.data['username'])
+    else:
+        admin_id = flask_login.current_user.id
+        name = request.form.get('name')
+        address = request.form.get('address')
+        borough = request.form.get('borough')
+        photo = request.form.get('photo')
+        year_of_construction = int(request.form.get('year_of_construction'))
+        price = float(request.form.get('price'))
+        if request.form.get('pet_friendly') == 'pet_friendly':
+            pet_friendly = True
+        else:
+            pet_friendly = False
+        if request.form.get('doorman') == 'doorman':
+            doorman = True
+        else:
+            doorman = False
+        if request.form.get('laundry_in_building') == 'laundry_in_building':
+            laundry_in_building = True 
+        else:
+            laundry_in_building = False
+        if request.form.get('parking') == 'parking':
+            parking = True
+        else:
+            parking = False
+        if request.form.get('elevator') == 'elevator':
+            elevator = True
+        else:
+            elevator = False
+        if request.form.get('gym') == 'gym':
+            gym = True
+        else:
+            gym = False
+        # if locate_user(username=username):
+        #     return render_template('register.html', error='User already exists!')
+        # elif len(username) >= 50:
+        #     return render_template('register.html', error='Please enter a valid username!')
+        # elif len(email) >= 50 or len(email.split("@")) != 2:
+        #     return render_template('register.html', error='Please enter a valid username!')
+        # else:
+        apartment = {
+            "admin_id": admin_id,
+            "name": name,
+            "address": address,
+            "borough": borough,
+            "photo": photo,
+            "year_of_construction": year_of_construction,
+            "price": price,
+            "pet_friendly": pet_friendly,
+            "doorman": doorman,
+            "laundry_in_building": laundry_in_building,
+            "parking": parking,
+            "elevator": elevator,
+            "gym": gym
+            }
+        apt_id = db.apartments.insert_one(apartment).inserted_id
+
+        new_apartment = db.apartments.find_one({"_id": apt_id})
+        print(new_apartment)
+        return redirect(url_for('home'))
 
 # run the app
 if __name__ == "__main__":
