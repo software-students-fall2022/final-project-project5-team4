@@ -168,11 +168,18 @@ def apartments():
 
     # query string (GET method)
     # query string key => borough, price-min, price-max
+    # filter_for_template = {
+    #     'borough': [], 'price-min': None, 'price-max': None, 'pet_friendly': None, 'doorman': None, 'gym': None, 'parking': None, 'elevator': None, 'laundry_in_building': None
+    # }
+    filter_for_template = request.args.to_dict()
+    filter_for_template['borough'] = []
+
     filter = dict()
 
     borough = request.args.getlist('borough', None)
     if borough:
-        filter['borough'] = {"$in": borough} 
+        filter['borough'] = {"$in": borough}
+        filter_for_template['borough'] = borough
 
     min_price = request.args.get('price-min') or 0
     max_price = request.args.get('price-max', None) 
@@ -187,7 +194,7 @@ def apartments():
             filter[key] = {"$eq": parse_yes_no_to_bool(value)}
     
     apartments = db.apartments.find(filter)
-    return render_template('apartments.html', apartments=apartments)
+    return render_template('apartments.html', apartments=apartments, filter_for_template=filter_for_template)
 
 @app.route('/apartments/<address_id>', methods = ['GET','POST'])
 def viewApartment(address_id):

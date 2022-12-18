@@ -23,9 +23,15 @@
     <div class="">
       <div class="filter-wrapper">
         <div class="filter-location">
-          <i class="bi bi-geo-alt"></i> New York
+          <i class="bi bi-geo-alt"></i> {{', '.join(filter_for_template.borough) or 'New York'}}
         </div>
-        <div class="filter-price"><i class="bi bi-tag"></i>$300 ~ $2000</div>
+        <div class="filter-price"><i class="bi bi-tag"></i>
+          {% if filter_for_template["price-min"] %}${% endif %}
+          {{filter_for_template["price-min"]}} 
+          {% if filter_for_template["price-min"] or filter_for_template["price-max"] %} ~ {% endif %}
+          {% if filter_for_template["price-max"] %}${% endif %}
+          {{filter_for_template["price-max"]}}
+        </div>
         <button
           class="btn btn-primary"
           type="button"
@@ -84,6 +90,7 @@
                     value="Bronx"
                     id="location-bronx"
                     autocomplete="off"
+                    {% if 'Bronx' in filter_for_template.borough %}checked{% endif %}
                   />
                   <label class="btn btn-outline-primary" for="location-bronx"
                     >Bronx</label
@@ -95,6 +102,7 @@
                     value="Brooklyn"
                     id="location-brooklyn"
                     autocomplete="off"
+                    {% if 'Brooklyn' in filter_for_template.borough %}checked{% endif %}
                   />
                   <label class="btn btn-outline-primary" for="location-brooklyn"
                     >Brooklyn</label
@@ -106,6 +114,7 @@
                     value="Manhattan"
                     id="location-manhattan"
                     autocomplete="off"
+                    {% if 'Manhattan' in filter_for_template.borough %}checked{% endif %}
                   />
                   <label
                     class="btn btn-outline-primary"
@@ -119,6 +128,7 @@
                     value="Queens"
                     id="location-queens"
                     autocomplete="off"
+                    {% if 'Queens' in filter_for_template.borough %}checked{% endif %}
                   />
                   <label class="btn btn-outline-primary" for="location-queens"
                     >Queens</label
@@ -130,6 +140,7 @@
                     value="Staten Island"
                     id="location-staten-island"
                     autocomplete="off"
+                    {% if 'Staten Island' in filter_for_template.borough %}checked{% endif %}
                   />
                   <label
                     class="btn btn-outline-primary"
