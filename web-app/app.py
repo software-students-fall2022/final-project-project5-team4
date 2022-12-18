@@ -109,9 +109,9 @@ def filter_basic():
     price_max = float(request.form['flower'])
 
     if price_max == -1:
-        docs = db.apartments.find({"borough":borough,"average_price":{'$gte': price_min}})
+        docs = db.apartments.find({"borough":borough,"average_price":{'$gte':price_min}})
     else:
-        docs = db.apartments.find({"borough":borough,"average_price":{'$gte': price_min, '$lte': price_max}})
+        docs = db.apartments.find({"borough":borough,"average_price":{'$gte':price_min,'$lte':price_max}})
 
     return render_template('apartments.html', docs=docs)
 
@@ -120,8 +120,10 @@ def filter_basic():
 def search():
 
     nameOrAdd = request.form['fnameOrAdd']
-    name_docs = db.apartments.find({"name":nameOrAdd})
-    add_docs = db.apartments.find({"address":nameOrAdd})
+    # name_docs = db.apartments.find({"name":nameOrAdd})
+    name_docs = db.apartments.find({"name":{'$regex':nameOrAdd}})
+    # add_docs = db.apartments.find({"address":nameOrAdd})
+    add_docs = db.apartments.find({"address":{'$regex':nameOrAdd}})
 
     docs = {}
 
