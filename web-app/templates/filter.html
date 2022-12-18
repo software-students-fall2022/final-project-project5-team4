@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<h2>Listings</h2>
+<p>Filter:
+    <form method="POST" action="{{ url_for('read_filterby')}}">
+        Borough:
+        <textarea type="text" id="fborough" name="fborough"></textarea>
+        Price range:
+        From (lower bound):
+        <textarea type="text" id="flower" name="flower"></textarea>
+        to (upper bound):
+        <textarea type="text" id="fupper" name="fupper"></textarea>
+        Pet-friendly:
+        <select name="fpets" id="fpets">
+            <option value="">   </option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+        Doorman:
+        <select name="fdoorman" id="fdoorman">
+            <option value="">   </option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+        Gym:
+        <select name="fgym" id="fgym">
+            <option value="">   </option>
+            <option value="Yes">Low to high</option>
+            <option value="No">Highest to low</option>
+        </select>
+        Parking:
+        <select name="fparking" id="fparking">
+            <option value="">   </option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+        Elevator:
+        <select name="felevator" id="felevator">
+            <option value="">   </option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+        Laundry in building:
+        <select name="flaundry" id="flaundry">
+            <option value="">   </option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+        Year of construction range:
+        Younger than:
+        <textarea type="text" id="fyounger" name="fyounger"></textarea>
+        Older than:
+        <textarea type="text" id="folder" name="folder"></textarea>
+    <input type="submit" name="filter-btn" value="Filter" /></form>
+</p>
+
+<p>
+    {% for doc in docs %}
+    <div class="card">
+        <div class="card" style="width: 18rem">
+          <img src="..." class="card-img-top" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">{{doc.name}}</h5>
+            <p class="card-text">
+              Borough: {{doc.borough}}
+              Address: {{doc.address}}
+            </p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+    </div>
+    {%endfor%}
+</p>
+{% endblock %}
