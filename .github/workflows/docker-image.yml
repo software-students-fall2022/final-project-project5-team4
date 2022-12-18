@@ -7,6 +7,9 @@ on:
 jobs:
   build-web-app:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./web-app
     steps:
       -
         name: Checkout
