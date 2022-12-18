@@ -62,9 +62,11 @@
             </table>
         </div>
     </div>
-    <div>
-        <a href="{{ url_for('add_review',  address_id=address_id)}}" class="btn">Add Review</a>
-    </div>
+        {% if login%}
+        <div>
+            <a href="{{ url_for('add_review',  address_id=address_id)}}" class="btn">Add Review</a>
+        </div>
+        {% endif %}
 </body>
 
 </html>

@@ -227,7 +227,7 @@ def add_review(address_id):
             "rating": request.form.get('rating',type=int), 
             "price": request.form.get('price'),
             "added_at": datetime.datetime.utcnow(),
-            "address_id": address_id
+            "address_id": address_id,
         }
         db.reviews.insert_one(review) # insert a new review
         return redirect(url_for('viewApartment',  address_id=address_id))
