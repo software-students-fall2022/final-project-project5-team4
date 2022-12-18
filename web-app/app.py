@@ -94,6 +94,53 @@ def home():
     if flask_login.current_user.is_authenticated:
         return render_template('user_home.html', username=flask_login.current_user.data['username'])
     return render_template('guest_home.html')
+
+
+@app.route('/filter')
+def filter_page():
+    return render_template('filter.html')
+
+
+@app.route('/filter', methods=['POST'])
+def filter_basic():
+
+    borough = request.form['fborough']
+    price_min = float(request.form['flower'])
+    price_max = float(request.form['flower'])
+
+    if price_max == -1:
+        docs = db.apartments.find({"borough":borough,"average_price":{'$gte':price_min}})
+    else:
+        docs = db.apartments.find({"borough":borough,"average_price":{'$gte':price_min,'$lte':price_max}})
+
+    return render_template('apartments.html', docs=docs)
+
+
+@app.route('/search', methods=['POST'])
+def search():
+
+    nameOrAdd = request.form['fnameOrAdd']
+    # name_docs = db.apartments.find({"name":nameOrAdd})
+    name_docs = db.apartments.find({"name":{'$regex':nameOrAdd}})
+    # add_docs = db.apartments.find({"address":nameOrAdd})
+    add_docs = db.apartments.find({"address":{'$regex':nameOrAdd}})
+
+    docs = {}
+
+    for name in name_docs:
+        docsKeys = docs.keys()
+        if name not in docsKeys:
+            docs[name] = name_docs[name]
+    
+    for add in add_docs:
+        docsKeys = docs.keys()
+        if add not in docsKeys:
+            docs[add] = add_docs[add]
+
+    return render_template('apartments.html', docs=docs)
+
+
+
         
 	
 ####################
