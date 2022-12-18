@@ -158,7 +158,7 @@ def register():
             # user = db.users.findOne({"username": username})      
             return redirect(url_for('login'))
 
-@app.route('/apartment', methods=['GET'])
+@app.route('/apartments/', methods=['GET'])
 def apartments():
     return render_template('apartments.html')
 
