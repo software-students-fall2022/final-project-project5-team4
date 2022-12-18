@@ -13,22 +13,4 @@
         <textarea type="text" id="fupper" name="fupper"></textarea>
     <input type="submit" name="filter-btn" value="Filter" /></form>
 </p>
-
-<p>
-    {% for doc in docs %}
-    <div class="card">
-        <div class="card" style="width: 18rem">
-          <img src="..." class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title">{{doc.name}}</h5>
-            <p class="card-text">
-              Borough: {{doc.borough}}
-              Address: {{doc.address}}
-            </p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-    </div>
-    {%endfor%}
-</p>
 {% endblock %}
