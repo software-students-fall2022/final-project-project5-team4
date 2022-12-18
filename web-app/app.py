@@ -94,6 +94,27 @@ def home():
     if flask_login.current_user.is_authenticated:
         return render_template('user_home.html', username=flask_login.current_user.data['username'])
     return render_template('guest_home.html')
+
+
+@app.route('/filter')
+def filter_page():
+    return render_template('filter.html')
+
+
+@app.route('/filter', methods=['POST'])
+def filter_basic():
+
+    borough = request.form['fborough']
+    price_min = float(request.form['flower'])
+    price_max = float(request.form['flower'])
+
+    if price_max == -1:
+        docs = db.apartments.find({"borough":borough,"average_price":{'$gte': price_min}})
+    else:
+        docs = db.apartments.find({"borough":borough,"average_price":{'$gte': price_min, '$lte': price_max}})
+
+    return render_template('apartments.html', docs=docs)
+
         
 	
 ####################
