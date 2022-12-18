@@ -24,6 +24,11 @@
             <nav>
               <a href="{{ url_for('account')}}">Account</a>
             </nav>
+            <nav>
+              <form method="POST" action="{{ url_for('read_filterby')}}">
+                Search: <input type="text" id="fnameOrAdd" name="fnameOrAdd" placeholder="Name/Address"/>
+              <input type="submit" name="search-btn" value="Search" /></form>
+            </nav>
           </div>
       </header>
         
