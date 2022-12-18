@@ -93,8 +93,8 @@ def home():
     Route for the home page before login
     """
     if flask_login.current_user.is_authenticated:
-        return render_template('user_home.html', username=flask_login.current_user.data['username'])
-    return render_template('guest_home.html')
+        return redirect(url_for('apartments'))
+    return redirect(url_for('login'))
 
 
 @app.route('/filter')
