@@ -160,17 +160,6 @@ def register():
 
 @app.route('/apartments/', methods=['GET'])
 def apartments():
-    # TODO
-    # 1. insert dummy data in mongodb (O)
-    # 2. filter by query string (pet_friendly, ...)
-    # 3. show apartments and filters 
-    # 4. modify card content
-
-    # query string (GET method)
-    # query string key => borough, price-min, price-max
-    # filter_for_template = {
-    #     'borough': [], 'price-min': None, 'price-max': None, 'pet_friendly': None, 'doorman': None, 'gym': None, 'parking': None, 'elevator': None, 'laundry_in_building': None
-    # }
     filter_for_template = request.args.to_dict()
     filter_for_template['borough'] = []
 

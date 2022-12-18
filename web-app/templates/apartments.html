@@ -158,6 +158,7 @@
                       placeholder="Minimun price"
                       aria-label="price-min"
                       name="price-min"
+                      value="{{filter_for_template['price-min'] or None}}"
                     />
                     <span class="input-group-text">Max Price: </span>
                     <input
@@ -166,6 +167,7 @@
                       placeholder="Maximum price"
                       aria-label="price-max"
                       name="price-max"
+                      value="{{filter_for_template['price-max'] or None}}"
                     />
                   </div>
                 </div>
@@ -178,6 +180,7 @@
                     value="yes"
                     id="pet-friendly-yes"
                     autocomplete="off"
+                    {% if filter_for_template.pet_friendly == 'yes' %}checked{% endif %}
                   />
                   <label class="btn btn-outline-primary" for="pet-friendly-yes"
                     >Yes</label
@@ -189,6 +192,7 @@
                     value="no"
                     id="pet-friendly-no"
                     autocomplete="off"
+                    {% if filter_for_template.pet_friendly == 'no' %}checked{% endif %}
                   />
                   <label class="btn btn-outline-primary" for="pet-friendly-no"
                     >No</label
@@ -200,7 +204,7 @@
                     value=""
                     id="pet-friendly-any"
                     autocomplete="off"
-                    checked
+                    {% if filter_for_template.pet_friendly == '' %}checked{% endif %}
                   />
                   <label class="btn btn-outline-primary" for="pet-friendly-any"
                     >Any</label
@@ -215,6 +219,7 @@
                     value="yes"
                     id="doorman-yes"
                     autocomplete="off"
+                    {% if filter_for_template.doorman == 'yes' %}checked{% endif %}
                   />
                   <label class="btn btn-outline-primary" for="doorman-yes"
                     >Yes</label
@@ -226,6 +231,7 @@
                     value="no"
                     id="doorman-no"
                     autocomplete="off"
+                    {% if filter_for_template.doorman == 'no' %}checked{% endif %}
                   />
                   <label class="btn btn-outline-primary" for="doorman-no"
                     >No</label
@@ -237,7 +243,7 @@
                     value=""
                     id="doorman-any"
                     autocomplete="off"
-                    checked
+                    {% if filter_for_template.doorman == '' %}checked{% endif %}
                   />
                   <label class="btn btn-outline-primary" for="doorman-any"
                     >Any</label
@@ -252,6 +258,7 @@
                     value="yes"
                     id="gym-yes"
                     autocomplete="off"
+                    {% if filter_for_template.gym == 'yes' %}checked{% endif %}
                   />
                   <label class="btn btn-outline-primary" for="gym-yes"
                     >Yes</label
@@ -263,6 +270,7 @@
                     value="no"
                     id="gym-no"
                     autocomplete="off"
+                    {% if filter_for_template.gym == 'no' %}checked{% endif %}
                   />
                   <label class="btn btn-outline-primary" for="gym-no">No</label>
                   <input
@@ -272,7 +280,7 @@
                     value=""
                     id="gym-any"
                     autocomplete="off"
-                    checked
+                    {% if filter_for_template.gym == '' %}checked{% endif %}
                   />
                   <label class="btn btn-outline-primary" for="gym-any"
                     >Any</label
@@ -287,6 +295,7 @@
                     value="yes"
                     id="parking-yes"
                     autocomplete="off"
+                    {% if filter_for_template.parking == 'yes' %}checked{% endif %}
                   />
                   <label class="btn btn-outline-primary" for="parking-yes"
                     >Yes</label
@@ -298,6 +307,7 @@
                     value="no"
                     id="parking-no"
                     autocomplete="off"
+                    {% if filter_for_template.parking == 'no' %}checked{% endif %}
                   />
                   <label class="btn btn-outline-primary" for="parking-no"
                     >No</label
@@ -309,7 +319,7 @@
                     value=""
                     id="parking-any"
                     autocomplete="off"
-                    checked
+                    {% if filter_for_template.parking == '' %}checked{% endif %}
                   />
                   <label class="btn btn-outline-primary" for="parking-any"
                     >Any</label
@@ -324,6 +334,7 @@
                     value="yes"
                     id="elevator-yes"
                     autocomplete="off"
+                    {% if filter_for_template.elevator == 'yes' %}checked{% endif %}
                   />
                   <label class="btn btn-outline-primary" for="elevator-yes"
                     >Yes</label
@@ -335,6 +346,7 @@
                     value="no"
                     id="elevator-no"
                     autocomplete="off"
+                    {% if filter_for_template.elevator == 'no' %}checked{% endif %}
                   />
                   <label class="btn btn-outline-primary" for="elevator-no"
                     >No</label
@@ -346,7 +358,7 @@
                     value=""
                     id="elevator-any"
                     autocomplete="off"
-                    checked
+                    {% if filter_for_template.elevator == '' %}checked{% endif %}
                   />
                   <label class="btn btn-outline-primary" for="elevator-any"
                     >Any</label
@@ -361,6 +373,7 @@
                     value="yes"
                     id="laundry-yes"
                     autocomplete="off"
+                    {% if filter_for_template.laundry_in_building == 'yes' %}checked{% endif %}
                   />
                   <label class="btn btn-outline-primary" for="laundry-yes"
                     >Yes</label
@@ -372,6 +385,7 @@
                     value="no"
                     id="laundry-no"
                     autocomplete="off"
+                    {% if filter_for_template.laundry_in_building == 'no' %}checked{% endif %}
                   />
                   <label class="btn btn-outline-primary" for="laundry-no"
                     >No</label
@@ -383,7 +397,7 @@
                     value=""
                     id="laundry-any"
                     autocomplete="off"
-                    checked
+                    {% if filter_for_template.laundry_in_building == '' %}checked{% endif %}
                   />
                   <label class="btn btn-outline-primary" for="laundry-any"
                     >Any</label
