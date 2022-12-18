@@ -142,3 +142,25 @@ a:hover, .box input[type = "submit"]:hover{
 a {
     max-width: 140px;
 }
+
+.box input[type = "button2"]{
+    color: black;
+    font-size: 80%;
+    background: none;
+    display: inline-flex;
+    height: 50px;
+    width: 70px;
+    margin: 10px auto;
+    margin-right: 15px;
+    align-items: center;
+    text-align: center;
+    border: 2px solid #75a6bb;
+    justify-content: center;
+    padding: 14px 40px;
+    outline: none;
+    color: white;
+    background-color: #9ccce1;
+    border-radius: 24px;
+    transition: .3s linear;
+    cursor: pointer;
+}
