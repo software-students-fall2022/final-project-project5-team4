@@ -218,6 +218,8 @@ def reviews(address_id):
 
 @app.route('/add_review/<address_id>', methods=['GET','POST'])
 def add_review(address_id):
+    if (not flask_login.current_user.is_authenticated):
+        return redirect(url_for('viewApartment',  address_id=address_id))
     if request.method == 'GET':
         return render_template('add_review.html', address_id=address_id)
     else: 
@@ -228,6 +230,7 @@ def add_review(address_id):
             "price": request.form.get('price'),
             "added_at": datetime.datetime.utcnow(),
             "address_id": address_id,
+            "user_id": ObjectId(flask_login.current_user.data['_id']),
         }
         db.reviews.insert_one(review) # insert a new review
         return redirect(url_for('viewApartment',  address_id=address_id))
