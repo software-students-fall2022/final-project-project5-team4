@@ -16,5 +16,7 @@ services:
     depends_on:
       - db
     environment:
-      MONGO_URL: mongodb://mongodb:27017
+      MONGO_DBNAME: ratemyapartment 
+      MONGO_URI: mongodb+srv://admin:team4FINALPROJECT@ratemyapartment.y9m9ut3.mongodb.net/test
+      
   

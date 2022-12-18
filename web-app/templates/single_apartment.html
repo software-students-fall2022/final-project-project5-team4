@@ -1,0 +1,76 @@
+{% extends 'base.html' %} {% block container %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+    <title>Register</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='singleApartment.css') }}"/>
+  
+	</head>
+<body>
+    <div>
+        <div id="leftSection" class="apartmentParallel">
+            <img id = "apartmentimage" src={{apartment.photo}} >
+        </div>
+
+        <div id="rightSection" class="apartmentParallel">
+            <p class = "title first">{{apartment.name}}
+                <form class="first" action="" method="POST">
+                {% if login%}
+                    {% if like%}     
+                        <input class="fav" id ="dislike" type="submit" name="" value = "♥" />
+                    {% else %}
+                        <input class="fav"  type="submit" name="" value = "♡" />
+                    {% endif %}
+                {% endif %}
+                </form>
+            <p>
+
+            <p class = "base"> Address: {{apartment.address}} </p>
+            <p class = "base"> Average Price: ${{apartment.price}}</p>
+            <p class = "base"> Average Rating: {{rating}} </p>
+            <p class = "base"> Year of construction:  {{apartment.year_of_construction}}</p>
+            
+            </br>
+            <p class = "base"> Amenities:  </p>
+            <p class = "amenities"> pet_friendly: {{apartment.pet_friendly}} </p>
+            <p class = "amenities"> doorman: {{apartment.doorman}}</p>
+            <p class = "amenities"> gym: {{apartment.gym}}</p>
+            <p class = "amenities"> parking: {{apartment.parking}}</p>
+            <p class = "amenities"> elevator: {{apartment.elevator}}</p>
+            <p class = "amenities"> laundry_in_building: {{apartment.laundry_in_building}}</p>
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <td>Comments</td>
+                    <td>Rating</td>
+                    <td>Price</td>
+                </tr>
+             {% block content %}
+                {% for review in reviews %}
+                <tr>
+                    <td>{{review.comments}}</td>
+                    <td>{{review.rating}}</td>
+                    <td>{{review.price}}</td>
+                </tr>
+                {% endfor %}
+            {% endblock %}
+            </table>
+        </div>
+    </div>
+        {% if login%}
+        <div>
+            <a href="{{ url_for('add_review',  address_id=address_id)}}" class="btn">Add Review</a>
+        </div>
+        {% endif %}
+</body>
+
+</html>
+
+
+{% endblock %}
+python3 -m flask run --host=0.0.0.0 --port=10000
