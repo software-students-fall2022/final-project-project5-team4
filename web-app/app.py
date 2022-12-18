@@ -1,3 +1,4 @@
+import math
 from flask import Flask, render_template, request, redirect, url_for, make_response, flash
 from bson.objectid import ObjectId
 from dotenv import dotenv_values
@@ -108,12 +109,24 @@ def filter_basic():
     price_min = float(request.form['flower'])
     price_max = float(request.form['flower'])
 
-    if price_max == -1:
-        docs = db.apartments.find({"borough":borough,"average_price":{'$gte':price_min}})
-    else:
-        docs = db.apartments.find({"borough":borough,"average_price":{'$gte':price_min,'$lte':price_max}})
+    filter_for_template = {}
+    filter_for_template['price-min'] = price_min
 
-    return render_template('apartments.html', docs=docs)
+    if price_max == -1:
+        if borough != "":
+            filter_for_template['borough'] = [borough]
+            docs = db.apartments.find({"borough":borough,"average_price":{'$gte':price_min}})
+        else:
+            filter_for_template['borough'] = []
+            docs = db.apartments.find({"average_price":{'$gte':price_min}})
+    else:
+        filter_for_template['price-max'] = price_max
+        if borough != "":
+            docs = db.apartments.find({"borough":borough,"average_price":{'$gte':price_min,'$lte':price_max}})
+        else:
+            docs = db.apartments.find({"average_price":{'$gte':price_min,'$lte':price_max}})
+
+    return render_template('apartments.html', docs=docs, filter_for_template=filter_for_template)
 
 
 @app.route('/search', methods=['POST'])
@@ -125,19 +138,21 @@ def search():
     # add_docs = db.apartments.find({"address":nameOrAdd})
     add_docs = db.apartments.find({"address":{'$regex':nameOrAdd}})
 
-    docs = {}
+    apartments = {}
 
     for name in name_docs:
-        docsKeys = docs.keys()
+        docsKeys = apartments.keys()
         if name not in docsKeys:
-            docs[name] = name_docs[name]
+            apartments[name] = name_docs[name]
     
     for add in add_docs:
-        docsKeys = docs.keys()
+        docsKeys = apartments.keys()
         if add not in docsKeys:
-            docs[add] = add_docs[add]
+            apartments[add] = add_docs[add]
+    
+    filter_for_template = {}
 
-    return render_template('apartments.html', docs=docs)
+    return render_template('apartments.html', apartments=apartments, filter_for_template=filter_for_template)
 
 
 
@@ -240,28 +255,10 @@ def apartments():
 
 @app.route('/apartments/<address_id>', methods = ['GET','POST'])
 def viewApartment(address_id):
-    # apartment = db.apartments.find_one({'_id': address_id})
-    apartment = db.apartments.find({})[0]
+    apartment = db.apartments.find_one({"_id": ObjectId(address_id)})
+    # apartment = db.apartments.find({})[0]
     if (apartment ==None):
         return redirect(url_for('home'))
-    # apartment = {
-    #     "_id": "1",
-    #     "price": 10000,
-    #     "name": "The Octagon",
-    #     "address": "888 Main St",
-    #     "borough": "Roosevelt Island",
-    #     "photo":"https://thumbs.cityrealty.com/assets/smart/736x/webp/9/97/9788674e147c90430c2beb67a1ec17e6297df3af/octagon-rotunda.jpg",
-    #     "year_of_construction": 2001,
-    #     "pet_friendly": True,
-    #     "doorman": False,
-    #     "gym": True,
-    #     "parking": False,
-    #     "elevator": True,
-    #     "laundry_in_building": True
-    # }
-    rating = 3
-    # login = True
-    # like = True
     login = False    
     like = False
     if (flask_login.current_user.is_authenticated):
@@ -282,15 +279,15 @@ def viewApartment(address_id):
             { "$set": doc }
         )
         like = not like
-    reviews = db.reviews.find({'address_id': address_id})
+    reviews = list(db.reviews.find({'address_id': ObjectId(address_id)}))
+    rating = 0
+    if(len(reviews) == 0 ):
+        rating = "no reviews yet"
+    else:
+        for i in reviews:
+            rating+= i['rating']
+        rating =  math.ceil((rating/ len(reviews))*100)/100
     return render_template('single_apartment.html', apartment = apartment, address_id=address_id, reviews=reviews, rating = rating, login = login, like = like)
-
-@app.route('/reviews/<address_id>', methods = ['GET'])
-def reviews(address_id):
-    reviews = db.reviews.find({'address_id': address_id})
-    print(reviews, flush=True)
-    return render_template('reviews.html', reviews=reviews, address_id=address_id)
-
 
 @app.route('/add_review/<address_id>', methods=['GET','POST'])
 def add_review(address_id):
@@ -303,12 +300,24 @@ def add_review(address_id):
         review = {
             "comments": request.form.get('comments'),
             "rating": request.form.get('rating',type=int), 
-            "price": request.form.get('price'),
+            "price": request.form.get('price', type=float),
             "added_at": datetime.datetime.utcnow(),
-            "address_id": address_id,
+            "address_id": ObjectId(address_id),
             "user_id": ObjectId(flask_login.current_user.data['_id']),
         }
         db.reviews.insert_one(review) # insert a new review
+        reviews = list(db.reviews.find({'address_id': ObjectId(address_id)}))
+        full_price = 0
+        for i in reviews:
+            full_price+= i['price']
+        full_price =  math.ceil((full_price/ len(reviews))*100)/100
+        doc = {
+            "price":  full_price, 
+        }
+        db.apartments.update_one(
+            {"_id": ObjectId(address_id)}, # match criteria
+            { "$set": doc }
+        )
         return redirect(url_for('viewApartment',  address_id=address_id))
 
 

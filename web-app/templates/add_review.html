@@ -10,8 +10,8 @@ reviews
 <form class="box" action="{{ url_for('add_review',  address_id=address_id)}}" method="POST">
 	<h1>Add a Review</h1>
 	<input type="comments" name = "comments" placeholder="Comments " required/> </br>
-	<input type="price" name = "price" placeholder="Price " required/> </br>
-	<input type="rating" name = "rating" placeholder="Rating" required/></br><hr color=#555555  style="width: 80%"/>
+	<input type="number" name = "price" placeholder="Price " required/> </br>
+	<input type="number" name = "rating" placeholder="Rating" min="1" max="5" required/></br><hr color=#555555  style="width: 80%"/>
 	
 	<input type="submit" name="" value = Submit />
 	<a id="go-back" href="/">Go back</a>
