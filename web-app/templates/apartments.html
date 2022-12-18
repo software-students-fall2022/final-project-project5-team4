@@ -37,20 +37,14 @@
       </div>
 
       <div class="card-wrapper">
-        {% for i in '123456' %}
+        {% for apartment in apartments %}
         <div class="card">
-          <img
-            src="https://cdngeneral.rentcafe.com/dmslivecafe/3/228633/11-Waverly-Place--Front_WEB.jpg?width=850&mode=pad&bgcolor=333333&quality=80"
-            class="card-img-top"
-            alt="..."
-          />
+          <img src="{{apartment.photo}}" class="card-img-top" alt="..." />
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
             <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
+             <div class="apartment-address">{{apartment.address}}</div>
             </p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <a href="/apartments/{{apartment._id}}" class="btn btn-primary">View More</a>
           </div>
         </div>
         {% endfor %}

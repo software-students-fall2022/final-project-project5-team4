@@ -160,7 +160,8 @@ def register():
 
 @app.route('/apartments/', methods=['GET'])
 def apartments():
-    return render_template('apartments.html')
+    apartments = db.apartments.find({})
+    return render_template('apartments.html', apartments=apartments)
 
 @app.route('/apartments/<address_id>', methods = ['GET','POST'])
 def viewApartment(address_id):
