@@ -26,7 +26,8 @@ class Test:
 		assert response.status_code == 200
 
 	def test_filter_post_borough(self):
-		response = self.client.post("/filter", data={
+		client = app.test_client()
+		response = client.post("/filter", data={
 			"fborough": "Bronx",
 			"flower": "",
 			"fupper": ""
@@ -34,7 +35,8 @@ class Test:
 		assert response.status_code == 200
 
 	def test_filter_post_lower(self):
-		response = self.client.post("/filter", data={
+		client = app.test_client()
+		response = client.post("/filter", data={
 			"fborough": "",
 			"flower": 1000,
 			"fupper": ""
@@ -42,7 +44,8 @@ class Test:
 		assert response.status_code == 200
 
 	def test_filter_post_upper(self):
-		response = self.client.post("/filter", data={
+		client = app.test_client()
+		response = client.post("/filter", data={
 			"fborough": "",
 			"flower": "",
 			"fupper": 50000
