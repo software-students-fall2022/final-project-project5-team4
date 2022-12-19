@@ -23,7 +23,6 @@ login_manager.init_app(app)
 
 config = dotenv_values(".env")
 
-config = dotenv_values(".env")
 
 # turn on debugging if in development mode
 if config['FLASK_ENV'] == 'development':
