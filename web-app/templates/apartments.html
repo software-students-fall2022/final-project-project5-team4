@@ -51,6 +51,7 @@
           <div class="card-body">
             <p class="card-text">
              <div class="apartment-address">{{apartment.address}}</div>
+             <div class="apartment-price">${{apartment.price}}</div>
             </p>
             <a href="/apartments/{{apartment._id}}" class="btn btn-primary">View More</a>
           </div>
@@ -408,13 +409,12 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button
-                type="button"
+              <a
                 class="btn btn-secondary"
-                data-bs-dismiss="modal"
+                href="/apartments/"
               >
-                Cancel
-              </button>
+                Reset
+            </a>
               <button type="submit" class="btn btn-primary">Search</button>
             </div>
           </form>

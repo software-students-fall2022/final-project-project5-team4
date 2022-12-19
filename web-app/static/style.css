@@ -1,13 +1,12 @@
 * {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: normal;
   text-align: center;
 }
 
-.container{
+.wrapper {
   text-align: center;
 }
-
 
 header {
   justify-content: space-between; /* align along the flex direction */
@@ -35,7 +34,6 @@ section.posts {
   gap: 1rem;
 }
 
-
 article.post {
   border: 1px solid black;
   padding: 1rem;
@@ -54,10 +52,10 @@ footer {
   margin-bottom: 5px;
 }
 
-.nav-bar{
+.nav-bar {
   display: -webkit-inline-box;
 }
-nav{
+nav {
   margin: 0 2rem 2rem 2rem;
 }
 
@@ -74,9 +72,8 @@ nav{
   padding: 3rem 3rem 2rem;
 }
 
-
 #fborough {
-  border:0;
+  border: 0;
   background: none;
   display: inline-block;
   margin: 10px auto;
@@ -85,14 +82,14 @@ nav{
   padding: 12px 10px;
   width: 200px;
   outline: none;
-  color:rgb(69, 69, 69);
+  color: rgb(69, 69, 69);
   border-radius: 24px;
   transition: 0.25s;
   font-size: 18px;
 }
 
 #flower {
-  border:0;
+  border: 0;
   background: none;
   display: inline-block;
   margin: 10px auto;
@@ -108,7 +105,7 @@ nav{
 }
 
 #fupper {
-  border:0;
+  border: 0;
   background: none;
   display: inline-block;
   margin: 10px auto;
@@ -123,10 +120,9 @@ nav{
   font-size: 18px;
 }
 
-
 /* input[type = "submit"] */
 #filterButton {
-  border:0;
+  border: 0;
   background: none;
   display: block;
   margin: 20px auto;

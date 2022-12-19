@@ -88,7 +88,76 @@ class Test:
 		})
 		assert response.status_code == 200
 
-  
+	def test_filter_pet_friendly(self):
+		client = flask_app.test_client()
+		response = client.get("/apartments/", data={
+			"borough": "",
+			"price_min": "",
+			"price_max": "",
+			"pet_friendly": "yes",
+		})
+		assert response.status_code == 200
+
+	def test_filter_doorman(self):
+		client = flask_app.test_client()
+		response = client.get("/apartments/", data={
+			"borough": "",
+			"price_min": "",
+			"price_max": "",
+			"doorman": "yes",
+		})
+		assert response.status_code == 200
+
+	def test_filter_doorman(self):
+		client = flask_app.test_client()
+		response = client.get("/apartments/", data={
+			"borough": "",
+			"price_min": "",
+			"price_max": "",
+			"doorman": "yes",
+		})
+		assert response.status_code == 200
+
+	def test_filter_gym(self):
+		client = flask_app.test_client()
+		response = client.get("/apartments/", data={
+			"borough": "",
+			"price_min": "",
+			"price_max": "",
+			"gym": "yes",
+		})
+		assert response.status_code == 200
+
+	def test_filter_parking(self):
+		client = flask_app.test_client()
+		response = client.get("/apartments/", data={
+			"borough": "",
+			"price_min": "",
+			"price_max": "",
+			"parking": "yes",
+		})
+		assert response.status_code == 200
+
+	def test_filter_elevator(self):
+		client = flask_app.test_client()
+		response = client.get("/apartments/", data={
+			"borough": "",
+			"price_min": "",
+			"price_max": "",
+			"elevator": "yes",
+		})
+		assert response.status_code == 200
+
+	def test_filter_laundry(self):
+		client = flask_app.test_client()
+		response = client.get("/apartments/", data={
+			"borough": "",
+			"price_min": "",
+			"price_max": "",
+			"laundry_in_building": "yes",
+		})
+		assert response.status_code == 200
+		
 	def test_user_loader_id(self):
 		user = app.locate_user(user_id='639e7fee2982074884ec55c6')
 		assert user is not None
