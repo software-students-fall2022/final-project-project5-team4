@@ -35,6 +35,10 @@
   color: rgb(122, 122, 253);
 }
 
+.card-img-top {
+  /* modify image size  */
+  height: 180px;
+}
 /* MODAL */
 .modal-body__wrapper {
   display: grid;
