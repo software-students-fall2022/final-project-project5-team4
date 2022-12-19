@@ -109,7 +109,7 @@ def filter_basic():
     price_min = float(request.form['flower'])
     price_max = float(request.form['flower'])
 
-    filter_for_template = {}
+    filter_for_template = dict()
     filter_for_template['price-min'] = price_min
 
     if price_max == -1:
@@ -134,23 +134,25 @@ def search():
 
     nameOrAdd = request.form['fnameOrAdd']
     # name_docs = db.apartments.find({"name":nameOrAdd})
-    name_docs = db.apartments.find({"name":{'$regex':nameOrAdd}})
+    name_docs = db.apartments.find({"name":{'$regex':nameOrAdd,'$options': 'ix'}})
     # add_docs = db.apartments.find({"address":nameOrAdd})
-    add_docs = db.apartments.find({"address":{'$regex':nameOrAdd}})
+    add_docs = db.apartments.find({"address":{'$regex':nameOrAdd,'$options': 'ix'}})
 
-    apartments = {}
+    apartments = dict()
 
     for name in name_docs:
         docsKeys = apartments.keys()
         if name not in docsKeys:
-            apartments[name] = name_docs[name]
+            value = name_docs[name]
+            apartments[name] = value
     
     for add in add_docs:
         docsKeys = apartments.keys()
         if add not in docsKeys:
+            value = add_docs[add]
             apartments[add] = add_docs[add]
     
-    filter_for_template = {}
+    filter_for_template = dict()
 
     return render_template('apartments.html', apartments=apartments, filter_for_template=filter_for_template)
 
