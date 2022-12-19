@@ -71,7 +71,16 @@ This web-app is an apartment searching app just like Streeteasy but better. (Thi
 
 ## How to Run Pytests
 
-### 1. Go to the directory you want to test
+### 1. Active virtual environment (Make sure you are in the virtual environment to test)
+
+Activate a virtual environment in the root directory by using this command line
+
+```
+python3 -m venv env
+source env/bin/activate
+```
+
+### 2. Go to the directory you want to test
 
 #### Web app
 
@@ -94,7 +103,7 @@ cd web-app-admin
 Install the dependencies to run pytest by using the following command line
 
 ```
-pip install -r requirements.txt
+pip install -r web-app/requirements.txt -r  web-app-admin/requirements.txt
 ```
 
 ### 4. Run pytest
