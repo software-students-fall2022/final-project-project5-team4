@@ -196,11 +196,15 @@ def search():
     nameOrAdd = request.form['fnameOrAdd']
 
     return redirect(url_for('apartments', nameOrAdd=nameOrAdd))
-    # return render_template('apartments.html', apartments=apartments, filter_for_template=filter_for_template)
 
 
 @app.route('/apartments/', methods=['GET'])
-def apartments(borough=None, price_min=None, price_max=None, nameOrAdd=None):
+def apartments():
+
+    borough = request.args.get('borough', None)
+    price_min = request.args.get('price_min', None)
+    price_max = request.args.get('price_max', None)
+    nameOrAdd = request.args.get('nameOrAdd', None)
 
     if (borough != None) and (price_min != None) and (price_max != None):
 
@@ -222,38 +226,17 @@ def apartments(borough=None, price_min=None, price_max=None, nameOrAdd=None):
         inputApartments = db.apartments.find(filter)
 
         return render_template('apartments.html', apartments=inputApartments, filter_for_template=inputFFT)
-    
 
-    if nameOrAdd != None:
+    elif nameOrAdd != None:
 
         inputFFT = dict()
-
-        # inputApartments = db.apartments.find(
-        #     {
-        #         "$or":
-        #         [
-        #             {"name":{"$regex": f".*{name}.*"}},
-        #             {"address":{"$regex": f".*{address}.*"}}
-        #         ]
-        #     }
-        # )
-
-        # inputApartments = db.apartments.find(
-        #     {
-        #         "$or":
-        #         [
-        #             {"name":{"$regex": name}},
-        #             {"address":{"$regex": address}}
-        #         ]
-        #     }
-        # )
 
         inputApartments = db.apartments.find(
             {
                 "$or":
                 [
-                    {"name":nameOrAdd},
-                    {"address":nameOrAdd}
+                    {"name":{"$regex": nameOrAdd, "$options": "i"}},
+                    {"address":{"$regex": nameOrAdd, "$options": "i"}}
                 ]
             }
         )
