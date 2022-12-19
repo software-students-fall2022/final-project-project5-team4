@@ -1,0 +1,75 @@
+{% extends 'base.html' %} 
+
+{% block container %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+    <title>Account</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}"/>
+  	<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}"/>
+	</head>
+<body>
+	<style>
+		.div1 {
+			width:20%;
+			float: left;
+		}
+		.child {
+			display: inline-table;
+		}
+		.div2 {
+			width: 75%;
+			float: right;
+			gap: 10px;
+		}
+		.div {
+			gap: 0px;
+			display: block;
+		}
+		a.two {
+			max-width: 100%;
+			border: 0px; 
+			border-radius: 5px;
+		}
+		a.two:hover{
+			background-color: #cfe8f2;
+		}
+	</style>
+	<div class = "div1">
+		<h1 class = "child">Hi, {{user.username}}!</h1>
+		<div class = "child"></divclass>You're signed in as: {{user.email}}</div>
+		<div class = "child">
+			<a href="{{ url_for('logout')}}" class="btn-acnt-so"> Signout</a>
+		</div>
+	</div>
+
+	<div class = "div2">
+		<div class="acnt-nav"> 
+			<a href="{{url_for('account_favorites')}}" class = 'btn-acnt2'>
+				Favorites
+			</a>
+			<a href="{{url_for('account_reviews')}}" class = 'btn-acnt'>
+				Your Reviews
+			</a>
+		</div>
+		{% for doc in docs %}
+			<article class = "content2">
+				<a href="{{ url_for('viewApartment', address_id=doc.address_id)}}" class = "two">
+					<span style="font-size:22px"> Building Name: {{doc.apt_name}} </span>
+					<p class="address"> Address: {{doc.apt_address}} </p>
+					<p class="rating"> Your Rating: {{doc.rating}}/5 </p>
+                    <p class="comments"> Your Comments: {{doc.comments}} </p>
+			</a>
+			</article>
+		
+		{%endfor%}
+	</div>
+
+	
+</body>
+</html>
+
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Filter by:</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='apartments.css') }}"/>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+        <link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}"/>
+        <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}"/>
+	</head>
+    <body class="filterWhiteSpace">
+        <div id="filter">
+        <form method="GET" action="{{ url_for('apartments')}}">
+            <div class="option"></div>
+            <label for="fborough">Borough:</label>
+            <select name="borough" id="fborough">
+                <option value="">   </option>
+                <option value="Bronx">Bronx</option>
+                <option value="Brooklyn">Brooklyn</option>
+                <option value="Manhattan">Manhattan</option>
+                <option value="Queens">Queens</option>
+                <option value="Staten Island">Staten Island</option>
+            </select>
+            </br>
+            </br>
+            Price range:</br>
+            <label for="flower">From (lower bound):     </label>
+            <input type="number" id="flower" name="price_min" value="0" step="1" />
+            <label for="fupper">To (upper bound):     </label>
+            <input type="number" id="fupper" name="price_max" value="" step="1" />
+            </br>
+            </br>
+        <button type="submit" class="btn btn-primary" name="filter" id="filterButton" value="1" >Filter</button>
+        </div>
+    </body>
+</html>
+{% endblock %}

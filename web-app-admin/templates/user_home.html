@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block container %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Home</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='form.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='home.css') }}"
+    />
+  </head>
+  <body>
+    <h2>Hi There! You are logged in!</h2>
+    <nav>
+      <a href="{{ url_for('logout')}}">Log Out</a>
+    </nav>
+  </body>
+</html>
+
+{% endblock %}

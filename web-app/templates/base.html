@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rate Your Apartments</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+      href="{{ url_for('static', filename='form.css') }}"
+      href="{{ url_for('static', filename='home.css') }}"
+    />
+    <link
+      href="http://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Rate My Apartment NYC</h1>
+        <h3>Find the apartments that REALLY fit your needs</h3>
+        <div class="nav-bar">
+          <nav>
+            <a href="{{ url_for('apartments')}}">Apartments</a>
+          </nav>
+          <nav>
+            <a href="{{ url_for('account_favorites')}}">Account</a>
+          </nav>
+          <nav>
+            <a href="{{ url_for('filter_page')}}">Filter</a>
+          </nav>
+          <nav>
+            <form method="POST" action="{{ url_for('search')}}">
+              Search:
+              <input
+                type="text"
+                id="fnameOrAdd"
+                name="fnameOrAdd"
+                placeholder="Name/Address"
+              />
+              <input
+                type="submit"
+                id="search-btn"
+                name="search-btn"
+                value="Search"
+              />
+            </form>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        <div class="div">{% block container %} {% endblock %}</div>
+      </main>
+    </div>
+  </body>
+</html>

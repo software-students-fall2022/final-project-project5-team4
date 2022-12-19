@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+    <title>Register</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}"/>
+  
+  
+	</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Rate My Apartment NYC Admin Page</h1>
+      <h3>Manage Your Apartments Here</h3>
+      <div class="nav-bar">
+      </div>
+  </header>
+    
+  <main>
+    <div class="div">
+      <form class="box" action="{{ url_for('login_submit') }}" method="POST">
+        <h1>Login</h1>
+        <input type="text" name = "username" placeholder="username" required/> </br>
+        <input type="password" name = "password" placeholder="password" required/></br>
+        <input type="submit" name="login" value = "Login" />
+        <hr color=#608696  style="width: 90%"/>
+        <h3>First time user?</h3>
+        <a id="go-back" href="{{ url_for('register')}}"> Register</a>
+        {% if error %}
+        <div class="error">
+          <p>{{ error }}</p>
+        </div>
+        {% endif %}
+    </form>
+    </div>
+  </main>
+</div>
+
+</body>
+
+

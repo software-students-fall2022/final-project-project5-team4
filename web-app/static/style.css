@@ -1,0 +1,143 @@
+* {
+  font-family: "Roboto", sans-serif;
+  font-weight: normal;
+  text-align: center;
+}
+
+.wrapper {
+  text-align: center;
+}
+
+header {
+  justify-content: space-between; /* align along the flex direction */
+  align-items: center; /* align across the flex direction */
+  /* border-bottom: thick double #32a1ce; */
+  padding-top: 3%;
+  background-color: #f0f4f4;
+}
+
+header,
+footer,
+header,
+main {
+  margin-bottom: 5px;
+  align-items: center;
+}
+main {
+  padding-top: 2%;
+}
+
+section.posts {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+article.post {
+  border: 1px solid black;
+  padding: 1rem;
+}
+article.post .controls {
+  font-size: 12px;
+}
+article.post .author {
+  font-size: 12px;
+}
+article.post p.message {
+  font-size: 24px;
+}
+
+footer {
+  margin-bottom: 5px;
+}
+
+.nav-bar {
+  display: -webkit-inline-box;
+}
+nav {
+  margin: 0 2rem 2rem 2rem;
+}
+
+#filter {
+  margin: auto;
+  width: 60%;
+  border-radius: 25px;
+  border: 2px solid #75a6bb;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  padding: 3rem 3rem 2rem;
+}
+
+#fborough {
+  border: 0;
+  background: none;
+  display: inline-block;
+  margin: 10px auto;
+  text-align: center;
+  border: 2px solid #3498db;
+  padding: 12px 10px;
+  width: 200px;
+  outline: none;
+  color: rgb(69, 69, 69);
+  border-radius: 24px;
+  transition: 0.25s;
+  font-size: 18px;
+}
+
+#flower {
+  border: 0;
+  background: none;
+  display: inline-block;
+  margin: 10px auto;
+  text-align: center;
+  border: 2px solid #3498db;
+  padding: 12px 10px;
+  width: 120px;
+  outline: none;
+  color: rgb(69, 69, 69);
+  border-radius: 24px;
+  transition: 0.25s;
+  font-size: 18px;
+}
+
+#fupper {
+  border: 0;
+  background: none;
+  display: inline-block;
+  margin: 10px auto;
+  text-align: center;
+  border: 2px solid #3498db;
+  padding: 12px 10px;
+  width: 120px;
+  outline: none;
+  color: rgb(69, 69, 69);
+  border-radius: 24px;
+  transition: 0.25s;
+  font-size: 18px;
+}
+
+/* input[type = "submit"] */
+#filterButton {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #75a6bb;
+  padding: 12px 30px;
+  outline: none;
+  color: black;
+  border-radius: 24px;
+  transition: 0.25s;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+#filterButton:hover {
+  background: #9ccce1;
+}

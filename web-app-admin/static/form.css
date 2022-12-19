@@ -1,0 +1,162 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: #fff;
+    text-align: -webkit-center;
+}
+.box{
+    width: 300px;
+    padding: 40px;
+    position: relative;
+    margin-top: 3%;
+    background: #e7e7e7;
+    text-align: center;
+}
+.box h1{
+    color: black;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin: 10px auto;
+}
+.box select, input[type = "text"],.box input[type = "password"],.box input[type = "email"],.box input[type = "url"],.box input[type = "number"]{
+    border:0;
+    background: none;
+    display: inline-block;
+    margin: 10px auto;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 14px 10px;
+    width: 180px;
+    outline: none;
+    color: grey;
+    border-radius: 24px;
+    transition: 0.25s;
+}
+.box input[type = "checkbox"] {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    height: 15px;
+    width: 15px;
+    background-color: grey;
+    border-radius: 50%;
+  }
+.box input[type = "address"], .box input[type = "date"]{
+    border:0;
+    background: none;
+    display: inline-block;
+    margin: 10px auto;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 14px 10px;
+    width: 120px;
+    outline: none;
+    color: grey;
+    border-radius: 24px;
+    transition: 0.25s;
+}
+
+.box select:focus,.box input[type = "text"]:focus,.box input[type = "password"]:focus,.box input[type = "url"]:focus,.box input[type = "number"]:focus{
+    width: 240px;
+    border-color: #9ccce1;
+}
+.box input[type = "address"]:focus, .box input[type = "date"]:focus{
+    width: 180px;
+    border-color: #75a6bb;
+}
+a, .box input[type = "submit"]{
+    border:0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #75a6bb;
+    padding: 14px 40px;
+    outline: none;
+    color: black;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+    text-decoration: none;
+}
+a:hover, .box input[type = "submit"]:hover{
+    background: #9ccce1;
+}
+
+.box input[type = "button"]{
+    color: black;
+    font-size: 80%;
+    background: none;
+    display: inline-flex;
+    height: 50px;
+    width: 70px;
+    margin: 10px auto;
+    margin-right: 15px;
+    align-items: center;
+    text-align: center;
+    border: 2px solid #75a6bb;
+    justify-content: center;
+    padding: 14px 40px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: .3s linear;
+    cursor: pointer;
+}
+.box input[type = "button"]:hover{
+    background: #9ccce1;
+}
+.box input[type = "button"]:focus{
+    background: #9ccce1;
+}
+.box input[type = "time"] {
+    background-color: #e7e7e7;
+    border: 2px solid #3498db;
+    padding: 10px;
+    border-radius: 24px;
+
+}
+.box input[type = "time"]:hover {
+    background-color: #9ccce1;
+
+}
+
+.box label {
+    color: rgb(98, 97, 97);
+    font-size: 100%;
+    text-align: left;
+    margin-right: 10px;
+    display: inline-block;
+}
+#sign-in{
+    width: 100%;
+}
+#go-back{
+    background: none;
+    color: black;
+    font-size: 80%;
+    text-decoration: initial;
+    /* width: 80px;
+    height: 15px; */
+    display: block;
+    margin: 10px auto;
+    margin-top: 20px;
+    text-align: center;
+    border: 2px solid #75a6bb;
+    padding: 14px 20px;
+    outline: none;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+}
+#go-back:hover{
+    background-color: #9ccce1;
+}
+.error{
+    color: #c7254e;
+}
+
+a {
+    max-width: 140px;
+}

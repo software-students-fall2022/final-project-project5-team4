@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+    <title>Add Apartment</title>
+	<link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"/>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}"/>
+	<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}"/>
+
+	</head>
+<body>
+	<div class="container">
+		<header>
+		  <h1>Rate My Apartment NYC Admin Page</h1>
+		  <h3>Manage Your Apartments Here</h3>
+		  <div class="nav-bar">
+		</div>
+	  </header>
+		
+	  <main>
+		<div class="div">
+		<form class="box" action="/add" method="POST">
+			<h1>Add Apartment</h1>
+			<input type="text" name = "name" placeholder="Apartment name" required/> </br>
+            <input type="text" id="address" placeholder="Street Address" name="address" autocomplete="street-address" required enterkeyhint="next"></input></br>
+            <select id="borough" name="borough" required>
+                <option value="Manhattan">Manhattan</option>
+                <option value="Brooklyn">Brooklyn</option>
+                <option value="Bronx">Bronx</option>
+                <option value="Queens">Queens</option>
+                <option value="Staten Island">Staten Island</option>
+              </select>
+			<input type="url" name = "photo" placeholder="Link to Apartment photo" required/> </br>
+			<input type="number" name = "year_of_construction" placeholder="Year of Construction" min="1883" max="2025" required/> </br>
+			<input type="number" name = "price" placeholder="Apartment Price" required/> </br>
+
+            <input type="checkbox" id="pet-friendly" name="pet_friendly" value="pet_friendly">
+            <label for="pet_friendly"> Pet Friendly</label><br>
+            <input type="checkbox" id="doorman" name="doorman" value="doorman">
+            <label for="doorman"> Doorman</label><br>
+            <input type="checkbox" id="gym" name="gym" value="gym">
+            <label for="gym"> Gym</label><br>
+            <input type="checkbox" id="parking" name="parking" value="parking">
+            <label for="parking"> Parking</label><br>
+            <input type="checkbox" id="elevator" name="elevator" value="elevator">
+            <label for="elevator"> Elevator</label><br>
+            <input type="checkbox" id="laundry_in_building" name="laundry_in_building" value="laundry_in_building">
+            <label for="laundry_in_building"> Laundry In the Building</label><br>
+
+			<input type="submit" name="" value = "Add" />
+			<hr color=#608696  style="width: 90%"/>
+			<a id="go-back" href="{{ url_for('home')}}"> Go Back</a>
+			{% if error %}
+			<div class="error">
+				<p>{{ error }}</p>
+			</div>
+			{% endif %}
+				
+		</form>
+	</div>
+</main>
+</div>
+
+</body>
+
+</html>
+

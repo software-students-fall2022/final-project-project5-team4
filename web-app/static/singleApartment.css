@@ -1,0 +1,80 @@
+
+#leftSection{
+    float: left;
+}
+
+#rightSection{
+    float: right;
+}
+
+.apartmentParallel{
+    margin: 20px;
+    /* color: brown; */
+}
+
+
+#apartmentimage{
+    height: 510px;
+    width: 400px;
+    object-fit: cover
+}
+
+.title{
+    font-size: 30px;
+    text-align: left;
+}
+
+.base{
+    text-align: left;
+    font-size: 18px;
+    margin: 15px;
+}
+
+.amenities{
+    text-align: left;
+    font-size: 15px;
+    margin: 15px;
+}
+
+.first{
+    display: inline-block;
+}
+
+.fav{
+    border:0;
+    background: none;
+    display: block;
+    text-align: center;
+    border: 2px solid #dfaeae;
+    padding: 7px 13px;
+    outline: none;
+    color: black;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 15px;
+    font-size: 20px;    
+}
+
+#dislike{
+    background-color: #dfaeae;
+    color: #a33f3f;
+}
+
+.username{
+    display: inline-block;
+    font-size: 20px; 
+    margin-top: 10px;   
+}
+
+
+.commentSection{
+    width: 80%;
+    text-align: center;
+    margin: 20px;
+}
+
+#review_btn{
+    width: 280px;
+}
