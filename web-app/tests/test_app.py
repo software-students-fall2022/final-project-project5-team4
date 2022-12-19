@@ -51,3 +51,30 @@ class Test:
 			"fupper": 50000
 		})
 		assert response.status_code == 302
+
+	def test_filter_post_borough_and_lower(self):
+		client = app.test_client()
+		response = client.post("/filter", data={
+			"fborough": "Bronx",
+			"flower": 1000,
+			"fupper": ""
+		})
+		assert response.status_code == 302
+
+	def test_filter_post_borough_and_upper(self):
+		client = app.test_client()
+		response = client.post("/filter", data={
+			"fborough": "Bronx",
+			"flower": "",
+			"fupper": 50000
+		})
+		assert response.status_code == 302
+	
+	def test_filter_post_lower_and_upper(self):
+		client = app.test_client()
+		response = client.post("/filter", data={
+			"fborough": "",
+			"flower": 1000,
+			"fupper": 50000
+		})
+		assert response.status_code == 302
