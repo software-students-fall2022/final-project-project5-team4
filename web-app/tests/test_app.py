@@ -30,57 +30,63 @@ class Test:
 
 	def test_filter_post_borough(self):
 		client = app.test_client()
-		response = client.post("/filter", data={
-			"fborough": "Bronx",
-			"flower": "",
-			"fupper": ""
+		response = client.get("/apartments/", data={
+			"borough": "Bronx",
+			"price_min": "",
+			"price_max": "",
+			"filter": "1"
 		})
-		assert response.status_code == 302
+		assert response.status_code == 200
 
 	def test_filter_post_lower(self):
 		client = app.test_client()
-		response = client.post("/filter", data={
-			"fborough": "",
-			"flower": 1000,
-			"fupper": ""
+		response = client.get("/apartments/", data={
+			"borough": "",
+			"price_min": "10000",
+			"price_max": "",
+			"filter": "1"
 		})
-		assert response.status_code == 302
+		assert response.status_code == 200
 
 	def test_filter_post_upper(self):
 		client = app.test_client()
-		response = client.post("/filter", data={
-			"fborough": "",
-			"flower": "",
-			"fupper": 50000
+		response = client.get("/apartments/", data={
+			"borough": "",
+			"price_min": "0",
+			"price_max": "15000",
+			"filter": "1"
 		})
-		assert response.status_code == 302
+		assert response.status_code == 200
 
 	def test_filter_post_borough_and_lower(self):
 		client = app.test_client()
-		response = client.post("/filter", data={
-			"fborough": "Bronx",
-			"flower": 1000,
-			"fupper": ""
+		response = client.get("/apartments/", data={
+			"borough": "Bronx",
+			"price_min": "10000",
+			"price_max": "",
+			"filter": "1"
 		})
-		assert response.status_code == 302
+		assert response.status_code == 200
 
 	def test_filter_post_borough_and_upper(self):
 		client = app.test_client()
-		response = client.post("/filter", data={
-			"fborough": "Bronx",
-			"flower": "",
-			"fupper": 50000
+		response = client.get("/apartments/", data={
+			"borough": "Bronx",
+			"price_min": "0",
+			"price_max": "15000",
+			"filter": "1"
 		})
-		assert response.status_code == 302
+		assert response.status_code == 200
 	
 	def test_filter_post_lower_and_upper(self):
 		client = app.test_client()
-		response = client.post("/filter", data={
-			"fborough": "",
-			"flower": 1000,
-			"fupper": 50000
+		response = client.get("/apartments/", data={
+			"borough": "",
+			"price_min": "10000",
+			"price_max": "15000",
+			"filter": "1"
 		})
-		assert response.status_code == 302
+		assert response.status_code == 200
 
   
 	def test_user_loader_id(self):
