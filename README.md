@@ -25,7 +25,7 @@ This web-app is an apartment searching app just like Streeteasy but better. (Thi
 
 ### Web App (User)
 
-1. The containers for the web app admin use port 5001. Make sure no other app is running on 4001 port.
+1. The containers for the web app admin use port 4001. Make sure no other app is running on 4001 port.
 2. At the root folder of the project run using the command `docker-compose up -d`
 3. Head to [localhost](http://localhost:4001/login) to login or sign up.
 
