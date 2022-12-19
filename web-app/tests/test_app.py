@@ -21,6 +21,73 @@ class Test:
 		url = 'not-exist-url'
 		response = client.get(url)
 		assert response.status_code == 404
+	
+	def test_filter(self):
+		client = flask_app.test_client()
+		url = '/filter'
+		response = client.get(url)
+		assert response.status_code == 200
+
+	def test_filter_post_borough(self):
+		client = flask_app.test_client()
+		response = client.get("/apartments/", data={
+			"borough": "Bronx",
+			"price_min": "",
+			"price_max": "",
+			"filter": "1"
+		})
+		assert response.status_code == 200
+
+	def test_filter_post_lower(self):
+		client = flask_app.test_client()
+		response = client.get("/apartments/", data={
+			"borough": "",
+			"price_min": "10000",
+			"price_max": "",
+			"filter": "1"
+		})
+		assert response.status_code == 200
+
+	def test_filter_post_upper(self):
+		client = flask_app.test_client()
+		response = client.get("/apartments/", data={
+			"borough": "",
+			"price_min": "0",
+			"price_max": "15000",
+			"filter": "1"
+		})
+		assert response.status_code == 200
+
+	def test_filter_post_borough_and_lower(self):
+		client = flask_app.test_client()
+		response = client.get("/apartments/", data={
+			"borough": "Bronx",
+			"price_min": "10000",
+			"price_max": "",
+			"filter": "1"
+		})
+		assert response.status_code == 200
+
+	def test_filter_post_borough_and_upper(self):
+		client = flask_app.test_client()
+		response = client.get("/apartments/", data={
+			"borough": "Bronx",
+			"price_min": "0",
+			"price_max": "15000",
+			"filter": "1"
+		})
+		assert response.status_code == 200
+	
+	def test_filter_post_lower_and_upper(self):
+		client = flask_app.test_client()
+		response = client.get("/apartments/", data={
+			"borough": "",
+			"price_min": "10000",
+			"price_max": "15000",
+			"filter": "1"
+		})
+		assert response.status_code == 200
+
   
 	def test_user_loader_id(self):
 		user = app.locate_user(user_id='639e7fee2982074884ec55c6')

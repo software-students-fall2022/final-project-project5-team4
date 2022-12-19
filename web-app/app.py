@@ -5,6 +5,7 @@ from dotenv import dotenv_values
 from utils import *
 import pymongo
 import datetime
+import re
 
 # instantiate the app
 app = Flask(__name__, static_url_path='/static')
@@ -91,66 +92,6 @@ def home():
     return redirect(url_for('login'))
 
 
-@app.route('/filter')
-def filter_page():
-    return render_template('filter.html')
-
-
-@app.route('/filter', methods=['POST'])
-def filter_basic():
-
-    borough = request.form['fborough']
-    price_min = float(request.form['flower'])
-    price_max = float(request.form['flower'])
-
-    filter_for_template = dict()
-    filter_for_template['price-min'] = price_min
-
-    if price_max == -1:
-        if borough != "":
-            filter_for_template['borough'] = [borough]
-            docs = db.apartments.find({"borough":borough,"average_price":{'$gte':price_min}})
-        else:
-            filter_for_template['borough'] = []
-            docs = db.apartments.find({"average_price":{'$gte':price_min}})
-    else:
-        filter_for_template['price-max'] = price_max
-        if borough != "":
-            docs = db.apartments.find({"borough":borough,"average_price":{'$gte':price_min,'$lte':price_max}})
-        else:
-            docs = db.apartments.find({"average_price":{'$gte':price_min,'$lte':price_max}})
-
-    return render_template('apartments.html', docs=docs, filter_for_template=filter_for_template)
-
-
-@app.route('/search', methods=['POST'])
-def search():
-
-    nameOrAdd = request.form['fnameOrAdd']
-    # name_docs = db.apartments.find({"name":nameOrAdd})
-    name_docs = db.apartments.find({"name":{'$regex':nameOrAdd,'$options': 'ix'}})
-    # add_docs = db.apartments.find({"address":nameOrAdd})
-    add_docs = db.apartments.find({"address":{'$regex':nameOrAdd,'$options': 'ix'}})
-
-    apartments = dict()
-
-    for name in name_docs:
-        docsKeys = apartments.keys()
-        if name not in docsKeys:
-            value = name_docs[name]
-            apartments[name] = value
-    
-    for add in add_docs:
-        docsKeys = apartments.keys()
-        if add not in docsKeys:
-            value = add_docs[add]
-            apartments[add] = add_docs[add]
-    
-    filter_for_template = dict()
-
-    return render_template('apartments.html', apartments=apartments, filter_for_template=filter_for_template)
-
-
 
         
 	
@@ -216,38 +157,101 @@ def register():
             # user = db.users.findOne({"username": username})      
             return redirect(url_for('login'))
 
+
+
+@app.route('/filter')
+def filter_page():
+    return render_template('filter.html')
+
+
+@app.route('/search', methods=['POST'])
+def search():
+
+    nameOrAdd = request.form['fnameOrAdd']
+
+    return redirect(url_for('apartments', nameOrAdd=nameOrAdd))
+
+
 @app.route('/apartments/', methods=['GET'])
 def apartments():
-    CHOICE_KEYS = ['pet_friendly', 'doorman', 'gym', 'parking', 'elevator', 'laundry_in_building']
-    # filter_for_template
-    filter_for_template = request.args.to_dict()
-    filter_for_template['borough'] = []
-    for key in CHOICE_KEYS:
-        if key not in filter_for_template.keys():
-            filter_for_template[key] = ''
 
-    # filter
-    filter = dict()
+    filterBool = request.args.get('filter', None)
+    nameOrAdd = request.args.get('nameOrAdd', None)
 
-    borough = request.args.getlist('borough', None)
-    if borough:
-        filter['borough'] = {"$in": borough}
-        filter_for_template['borough'] = borough
+    if filterBool:
 
-    min_price = request.args.get('price-min') or 0
-    max_price = request.args.get('price-max', None) 
-    if max_price:
-        filter['price'] = {"$lt": int(max_price), "$gt": int(min_price)}
+        borough = request.args.get('borough')
+        price_min = request.args.get('price_min')
+        price_max = request.args.get('price_max')
+
+        filter = dict()
+
+        inputFFT = dict()
+
+        if borough != "":
+            inputFFT['borough'] = [borough]
+            filter['borough'] = {"$in": [borough]}
+
+        if price_max != "":
+            inputFFT['price-min'] = price_min
+            inputFFT['price-max'] = price_max
+            filter['price'] = {"$lte": int(price_max), "$gte": int(price_min)}
+        else:
+            inputFFT['price-min'] = price_min
+            filter['price'] = {"$gte": int(price_min)}
+        
+        inputApartments = db.apartments.find(filter)
+
+        return render_template('apartments.html', apartments=inputApartments, filter_for_template=inputFFT)
+
+    elif nameOrAdd != None:
+
+        inputFFT = dict()
+
+        inputApartments = db.apartments.find(
+            {
+                "$or":
+                [
+                    {"name":{"$regex": nameOrAdd, "$options": "i"}},
+                    {"address":{"$regex": nameOrAdd, "$options": "i"}}
+                ]
+            }
+        )
+
+        return render_template('apartments.html', apartments=inputApartments, filter_for_template=inputFFT)
+
     else:
-        filter['price'] = {"$gt": int(min_price)} 
+        CHOICE_KEYS = ['pet_friendly', 'doorman', 'gym', 'parking', 'elevator', 'laundry_in_building']
+        # filter_for_template
+        filter_for_template = request.args.to_dict()
+        filter_for_template['borough'] = []
+        for key in CHOICE_KEYS:
+            if key not in filter_for_template.keys():
+                filter_for_template[key] = ''
 
-    for key in CHOICE_KEYS:
-        value = request.args.get(key, None)
-        if value:
-            filter[key] = {"$eq": parse_yes_no_to_bool(value)}
+        # filter
+        filter = dict()
+
+        borough = request.args.getlist('borough', None)
+        if borough:
+            filter['borough'] = {"$in": borough}
+            filter_for_template['borough'] = borough
+
+        min_price = request.args.get('price-min') or 0
+        max_price = request.args.get('price-max', None) 
+        if max_price:
+            filter['price'] = {"$lt": int(max_price), "$gt": int(min_price)}
+        else:
+            filter['price'] = {"$gt": int(min_price)} 
+
+        for key in CHOICE_KEYS:
+            value = request.args.get(key, None)
+            if value:
+                filter[key] = {"$eq": parse_yes_no_to_bool(value)}
     
     apartments = db.apartments.find(filter)
     return render_template('apartments.html', apartments=apartments, filter_for_template=filter_for_template)
+
 
 @app.route('/apartments/<address_id>', methods = ['GET','POST'])
 def viewApartment(address_id):
