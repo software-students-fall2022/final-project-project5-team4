@@ -316,7 +316,8 @@ class Test:
 		url = '/add_review/639ff1a074667ef41729ac52'
 		response = client.post(url, data = {'comments':'test', 'rating':1, 'price': 1}, follow_redirects=True)
 		assert response.status_code == 200
-		app.db.admins.delete_one({"address_id": "639ff1a074667ef41729ac52"})
+		app.db.reviews.delete_one({"address_id": "639ff1a074667ef41729ac52"})
+		app.delete_test_review()
   
 	def test_account_login(self):
 		client = flask_app.test_client()
