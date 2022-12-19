@@ -33,7 +33,7 @@
                 <option value="Queens">Queens</option>
                 <option value="Staten Island">Staten Island</option>
               </select>
-			<input type="url" name = "photo" placeholder="Apartment photo" required/> </br>
+			<input type="url" name = "photo" placeholder="Link to Apartment photo" required/> </br>
 			<input type="number" name = "year_of_construction" placeholder="Year of Construction" min="1883" max="2025" required/> </br>
 			<input type="number" name = "price" placeholder="Apartment Price" required/> </br>
 
@@ -52,7 +52,7 @@
 
 			<input type="submit" name="" value = "Add" />
 			<hr color=#608696  style="width: 90%"/>
-			<a id="go-back" href="{{ url_for('add_apartment')}}"> Go Back</a>
+			<a id="go-back" href="{{ url_for('home')}}"> Go Back</a>
 			{% if error %}
 			<div class="error">
 				<p>{{ error }}</p>
