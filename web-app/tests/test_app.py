@@ -32,7 +32,7 @@ class Test:
 			"flower": "",
 			"fupper": ""
 		})
-		assert response.status_code == 200
+		assert response.status_code == 302
 
 	def test_filter_post_lower(self):
 		client = app.test_client()
@@ -41,7 +41,7 @@ class Test:
 			"flower": 1000,
 			"fupper": ""
 		})
-		assert response.status_code == 200
+		assert response.status_code == 302
 
 	def test_filter_post_upper(self):
 		client = app.test_client()
@@ -50,4 +50,4 @@ class Test:
 			"flower": "",
 			"fupper": 50000
 		})
-		assert response.status_code == 200
+		assert response.status_code == 302
