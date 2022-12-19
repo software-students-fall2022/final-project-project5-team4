@@ -1,6 +1,5 @@
 from app import app as flask_app 
 import app  # app.py
-import flask_login
 
 
 class Test:
