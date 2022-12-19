@@ -1,20 +1,22 @@
-reviews
+{% extends 'base.html' %} 
+
+{% block container %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 	<head>
 		<meta charset="utf-8">
     <title>Register</title>
 	<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}"/>
+	<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}"/>
 	</head>
 <body>
 <form class="box" action="{{ url_for('add_review',  address_id=address_id)}}" method="POST">
 	<h1>Add a Review</h1>
-	<input type="comments" name = "comments" placeholder="Comments " required/> </br>
+	<textarea type="text" name = "comments" id = "comment" placeholder="Comments " required/> Comments </textarea> </br>
 	<input type="number" name = "price" placeholder="Price " required/> </br>
 	<input type="number" name = "rating" placeholder="Rating" min="1" max="5" required/></br><hr color=#555555  style="width: 80%"/>
-	
 	<input type="submit" name="" value = Submit />
-	<a id="go-back" href="/">Go back</a>
+	<a id="go-back" href="{{ url_for('viewApartment',  address_id=address_id)}}">Go back</a>
 	{% if error %}
     <div class="error">
         <p>{{ error }}</p>
@@ -27,3 +29,4 @@ reviews
 
 </html>
 
+{% endblock %}

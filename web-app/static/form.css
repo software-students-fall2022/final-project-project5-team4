@@ -181,3 +181,23 @@ a {
 #search-btn:hover{
     background-color: #9ccce1;
 }
+
+#comment{
+    height: 180px;
+    width: 180px;
+    border:0;
+    background: none;
+    display: inline-block;
+    margin: 10px auto;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 14px 10px;
+    color: grey;
+    border-radius: 24px;
+    transition: 0.25s;
+}
+
+#comment:focus{
+    width: 240px;
+    border: #9ccce1;
+}
