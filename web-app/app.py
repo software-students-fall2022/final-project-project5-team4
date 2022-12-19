@@ -357,6 +357,11 @@ def account_reviews():
         docs2.append(doc)
     return render_template('account_reviews.html',docs = docs2, user = user)
 
+def delete_test_review():
+	db.reviews.delete_many({"comments": "test"})
+
+
+
 # run the app
 if __name__ == "__main__":
 	app.run()
