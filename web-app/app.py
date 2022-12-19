@@ -164,26 +164,6 @@ def filter_page():
     return render_template('filter.html')
 
 
-@app.route('/filter', methods=['POST'])
-def filter_basic():
-
-    borough = request.form['fborough']
-    price_min = request.form['flower']
-    price_max = request.form['fupper']
-
-    if price_min == "":
-        price_min = 0
-    else:
-        price_min = int(price_min)
-    
-    if price_max == "":
-        price_max = -1
-    else:
-        price_max = int(price_max)
-
-    return redirect(url_for('apartments', borough=borough, price_min=price_min, price_max=price_max))
-
-
 @app.route('/search', methods=['POST'])
 def search():
 
@@ -195,26 +175,29 @@ def search():
 @app.route('/apartments/', methods=['GET'])
 def apartments():
 
-    borough = request.args.get('borough', None)
-    price_min = request.args.get('price_min', None)
-    price_max = request.args.get('price_max', None)
+    filterBool = request.args.get('filter', None)
     nameOrAdd = request.args.get('nameOrAdd', None)
 
-    if (borough != None) and (price_min != None) and (price_max != None):
+    if filterBool:
+
+        borough = request.args.get('borough')
+        price_min = request.args.get('price_min')
+        price_max = request.args.get('price_max')
 
         filter = dict()
 
         inputFFT = dict()
-        inputFFT['price-min'] = price_min
 
         if borough != "":
             inputFFT['borough'] = [borough]
             filter['borough'] = {"$in": [borough]}
 
-        if price_max != -1:
-            inputFFT['price'] = [borough]
-            filter['price'] = {"$gte": int(price_min), "$lte": int(price_max)}
+        if price_max != "":
+            inputFFT['price-min'] = price_min
+            inputFFT['price-max'] = price_max
+            filter['price'] = {"$lte": int(price_max), "$gte": int(price_min)}
         else:
+            inputFFT['price-min'] = price_min
             filter['price'] = {"$gte": int(price_min)}
         
         inputApartments = db.apartments.find(filter)
