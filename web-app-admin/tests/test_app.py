@@ -115,6 +115,8 @@ class Test:
 		url = '/add'
 		response = client.post(url, data = {'name':'test', 'address': 'test address', 'borough': 'Manhattan', 'photo': 'https://www.testim.io/wp-content/uploads/2019/11/Testim-What-is-a-Test-Environment_-A-Guide-to-Managing-Your-Testing-A.png', 'year_of_construction': 2000, 'price': 10000}, follow_redirects=True)
 		assert response.status_code == 200
+		app.db.apartments.delete_one({'name':'test'})
+
 
 	def test_add_apartment_post_bi(self):
 		client = flask_app.test_client()
@@ -122,6 +124,8 @@ class Test:
 		url = '/add'
 		response = client.post(url, data = {'name':'test 2', 'address': 'test address 2', 'borough': 'Manhattan', 'photo': 'https://www.testim.io', 'year_of_construction': 2000,'price': 10000,'pet_friendly': 'pet_friendly','doorman':'doorman','laundry_in_building':'laundry_in_building','parking':'parking','elevator':'elevator','gym':'gym'}, follow_redirects=True)
 		assert response.status_code == 200
+		app.db.apartments.delete_one({'name':'test 2'})
+
 
 
 	def test_404(self):
