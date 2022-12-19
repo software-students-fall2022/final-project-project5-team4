@@ -18,3 +18,33 @@ class Test:
 		url = 'not-exist-url'
 		response = client.get(url)
 		assert response.status_code == 404
+	
+	def test_filter(self):
+		client = app.test_client()
+		url = '/filter'
+		response = client.get(url)
+		assert response.status_code == 200
+
+	def test_filter_post_borough(client):
+		response = client.post("/filter", data={
+			"fborough": "Bronx",
+			"flower": "",
+			"fupper": ""
+		})
+		assert response.status_code == 200
+
+	def test_filter_post_lower(client):
+		response = client.post("/filter", data={
+			"fborough": "",
+			"flower": 1000,
+			"fupper": ""
+		})
+		assert response.status_code == 200
+
+	def test_filter_post_upper(client):
+		response = client.post("/filter", data={
+			"fborough": "",
+			"flower": "",
+			"fupper": 50000
+		})
+		assert response.status_code == 200
