@@ -67,3 +67,14 @@
     font-size: 20px; 
     margin-top: 10px;   
 }
+
+
+.commentSection{
+    width: 80%;
+    text-align: center;
+    margin: 20px;
+}
+
+#review_btn{
+    width: 280px;
+}
