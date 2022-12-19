@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, make_response, flash
 from bson.objectid import ObjectId
 from dotenv import dotenv_values
-from utils import *
 
 import pymongo
 import datetime
@@ -28,16 +27,16 @@ if config['FLASK_ENV'] == 'development':
 
 # connect to the database
 cxn = pymongo.MongoClient(config['MONGO_URI'], serverSelectionTimeoutMS=5000)
-try:
+# try:
     # verify the connection works by pinging the database
-    cxn.admin.command('ping') # The ping command is cheap and does not require auth.
-    db = cxn[config['MONGO_DBNAME']] # store a reference to the database
-    print(' *', 'Connected to MongoDB!') # if we get here, the connection worked!
-except Exception as e:
-    # the ping command failed, so the connection is not available.
-    # render_template('error.html', error=e) # render the edit template
-    print(' *', "Failed to connect to MongoDB at", config['MONGO_URI'])
-    print('Database connection error:', e) # debug
+cxn.admin.command('ping') # The ping command is cheap and does not require auth.
+db = cxn[config['MONGO_DBNAME']] # store a reference to the database
+print(' *', 'Connected to MongoDB!') # if we get here, the connection worked!
+# except Exception as e:
+#     # the ping command failed, so the connection is not available.
+#     # render_template('error.html', error=e) # render the edit template
+#     print(' *', "Failed to connect to MongoDB at", config['MONGO_URI'])
+#     print('Database connection error:', e) # debug
 
 # class to represent user
 class User(flask_login.UserMixin):
@@ -106,7 +105,6 @@ def login_submit():
     username = request.form['username']
     password = request.form['password']
     user = locate_user(username=username)
-    print(user)
     if user and check_password_hash(user.data['password'],password):
         flask_login.login_user(user)
         flash('Welcome back!')
@@ -206,10 +204,12 @@ def add_apartment():
             "elevator": elevator,
             "gym": gym
             }
-        apt_id = db.apartments.insert_one(apartment).inserted_id
 
-        new_apartment = db.apartments.find_one({"_id": apt_id})
-        print(new_apartment)
+        db.apartments.insert_one(apartment)
+        # apt_id = db.apartments.insert_one(apartment).inserted_id
+
+        # new_apartment = db.apartments.find_one({"_id": apt_id})
+        # print(new_apartment)
         return redirect(url_for('home'))
 
 # run the app

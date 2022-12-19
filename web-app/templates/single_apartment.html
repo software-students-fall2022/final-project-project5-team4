@@ -44,27 +44,25 @@
             <p class = "amenities"> laundry_in_building: {{apartment.laundry_in_building}}</p>
         </div>
         <div>
-            <table>
-                <tr>
-                    <td>Comments</td>
-                    <td>Rating</td>
-                    <td>Price</td>
-                </tr>
              {% block content %}
                 {% for review in reviews %}
-                <tr>
-                    <td>{{review.comments}}</td>
-                    <td>{{review.rating}}</td>
-                    <td>{{review.price}}</td>
-                </tr>
+                <article class = "content2">
+                        <span class="username"> Reviewer: {{review.username_name}} </span>
+                        <p class="comments"> Comments: {{review.comments}} </p>
+                        <p class="price"> Price: ${{review.price}} </p>
+                        <p class="rating"> Rating: {{review.rating}} /5</p>
+                </article>
                 {% endfor %}
             {% endblock %}
-            </table>
         </div>
     </div>
         {% if login%}
         <div>
             <a href="{{ url_for('add_review',  address_id=address_id)}}" class="btn">Add Review</a>
+        </div>
+        {% else %}
+        <div>
+            <a href="{{ url_for('login')}}" class="btn">Login To Add Review</a>
         </div>
         {% endif %}
 </body>

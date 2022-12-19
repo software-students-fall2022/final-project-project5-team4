@@ -1,0 +1,45 @@
+{% extends 'base.html' %} 
+
+{% block container %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+    <title>Account</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}"/>
+  	<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}"/>
+  	<link rel="stylesheet" href="{{ url_for('static', filename='my_apt.css') }}"/>
+	</head>
+<body>
+	<div class = "div1">
+		<h1 class = "child">Hi, {{user.username}}!</h1></br>
+		<div class = "child">
+			<a href="{{ url_for('logout')}}" class="btn-acnt-so"> Signout</a>
+		</div>
+	</div>
+
+	<div class = "div2">
+		<div class="acnt-nav"> 
+			
+				<h1>My Apartments</h1>
+
+		</div>
+		{% for apt in apartments %}
+			<article class = "content2">
+				<a href="https://rate-my-apartment-nyc-o3klv.ondigitalocean.app/apartments/{{apt._id}}" class = "two">
+					<span style="font-size:22px"> Building Name: {{apt.name}} </span>
+					<p class="address"> Address: {{apt.address}} </p>
+					<p class="borough"> Borough: {{apt.borough}} </p>
+			</a>
+			</article>
+		
+		{%endfor%}
+	</div>
+
+	
+</body>
+</html>
+
+
+{% endblock %}

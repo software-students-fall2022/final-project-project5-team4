@@ -94,8 +94,8 @@ def home():
     Route for the home page before login
     """
     if flask_login.current_user.is_authenticated:
-        return render_template('user_home.html', username=flask_login.current_user.data['username'])
-    return render_template('guest_home.html')
+        return redirect(url_for('apartments'))
+    return redirect(url_for('login'))
 
 
 
@@ -320,6 +320,13 @@ def viewApartment(address_id):
         )
         like = not like
     reviews = list(db.reviews.find({'address_id': ObjectId(address_id)}))
+    docs2 = []
+    for review in reviews:
+        userid = review["user_id"]
+        user = db.users.find_one({"_id": ObjectId(userid)})
+        review.update({"username_name":user['username']})
+        docs2.append(review)
+
     rating = 0
     if(len(reviews) == 0 ):
         rating = "no reviews yet"
@@ -327,7 +334,7 @@ def viewApartment(address_id):
         for i in reviews:
             rating+= i['rating']
         rating =  math.ceil((rating/ len(reviews))*100)/100
-    return render_template('single_apartment.html', apartment = apartment, address_id=address_id, reviews=reviews, rating = rating, login = login, like = like)
+    return render_template('single_apartment.html', apartment = apartment, address_id=address_id, reviews=docs2, rating = rating, login = login, like = like)
 
 @app.route('/add_review/<address_id>', methods=['GET','POST'])
 def add_review(address_id):

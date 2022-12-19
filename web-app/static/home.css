@@ -431,27 +431,8 @@ body{
   section.reviews {
     min-height: 300px;
   }
-  .btn{
-    background: none;
-    color: black;
-    font-size: 80%;
-    text-decoration: initial;
-    min-width: 200px;
-    height: 15px;
-    border:0;
-    display: block;
-    margin: 10px auto;
-    text-align: center;
-    border: 2px solid #00eab3;
-    padding: 14px 20px;
-    outline: none;
-    border-radius: 24px;
-    transition: 0.25s;
-    cursor: pointer;
-  }
-  .btn:hover{
-      background-color: #00eab3;
-  }
+
+
 
 
 
