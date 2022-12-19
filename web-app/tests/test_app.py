@@ -25,24 +25,24 @@ class Test:
 		response = client.get(url)
 		assert response.status_code == 200
 
-	def test_filter_post_borough(client):
-		response = client.post("/filter", data={
+	def test_filter_post_borough(self):
+		response = self.client.post("/filter", data={
 			"fborough": "Bronx",
 			"flower": "",
 			"fupper": ""
 		})
 		assert response.status_code == 200
 
-	def test_filter_post_lower(client):
-		response = client.post("/filter", data={
+	def test_filter_post_lower(self):
+		response = self.client.post("/filter", data={
 			"fborough": "",
 			"flower": 1000,
 			"fupper": ""
 		})
 		assert response.status_code == 200
 
-	def test_filter_post_upper(client):
-		response = client.post("/filter", data={
+	def test_filter_post_upper(self):
+		response = self.client.post("/filter", data={
 			"fborough": "",
 			"flower": "",
 			"fupper": 50000
