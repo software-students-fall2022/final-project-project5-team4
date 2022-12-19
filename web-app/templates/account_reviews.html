@@ -56,7 +56,7 @@
 		</div>
 		{% for doc in docs %}
 			<article class = "content2">
-				<a href="{{ url_for('reviews', address_id=doc.address_id)}}" class = "two">
+				<a href="{{ url_for('viewApartment', address_id=doc.address_id)}}" class = "two">
 					<span style="font-size:22px"> Building Name: {{doc.apt_name}} </span>
 					<p class="address"> Address: {{doc.apt_address}} </p>
 					<p class="rating"> Your Rating: {{doc.rating}}/5 </p>
