@@ -47,7 +47,7 @@
              {% block content %}
                 {% for review in reviews %}
                 <article class = "content2">
-                        <span style="font-size:22px"> Reviewer: {{review.username_name}} </span>
+                        <span class="username"> Reviewer: {{review.username_name}} </span>
                         <p class="comments"> Comments: {{review.comments}} </p>
                         <p class="price"> Price: ${{review.price}} </p>
                         <p class="rating"> Rating: {{review.rating}} /5</p>
@@ -59,6 +59,10 @@
         {% if login%}
         <div>
             <a href="{{ url_for('add_review',  address_id=address_id)}}" class="btn">Add Review</a>
+        </div>
+        {% else %}
+        <div>
+            <a href="{{ url_for('login')}}" class="btn">Login To Add Review</a>
         </div>
         {% endif %}
 </body>
